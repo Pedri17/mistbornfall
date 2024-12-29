@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx1rik15konmy"]
+
+[ext_resource type="Script" path="res://scenes/entity/character/behaviors/scripts/long_jump.gd" id="1_0n28q"]
+
+[node name="LongJump" type="Node"]
+script = ExtResource("1_0n28q")

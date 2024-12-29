@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ww0477tng6d4"]
+
+[ext_resource type="Script" path="res://scenes/utilities/metal_body_component/metal_body_component.gd" id="1_x5r76"]
+
+[node name="MetalBodyComponent" type="Node"]
+script = ExtResource("1_x5r76")

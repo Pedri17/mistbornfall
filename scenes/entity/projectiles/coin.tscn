@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://dx0wpqy06awar"]
+
+[ext_resource type="Texture2D" uid="uid://che80vkthi5ew" path="res://assets/sprites/projectiles.png" id="1_v1sc4"]
+[ext_resource type="PackedScene" uid="uid://d68r15lnsetv" path="res://scenes/utilities/projectile_component/projectile_component.tscn" id="2_fcg07"]
+[ext_resource type="Resource" uid="uid://bd5826crnfia" path="res://scenes/entity/projectiles/coin.tres" id="3_c0hpa"]
+[ext_resource type="PackedScene" uid="uid://iv7ko44prhkq" path="res://scenes/utilities/basic_physics/basic_physics_component.tscn" id="3_w7dwg"]
+[ext_resource type="PackedScene" uid="uid://ww0477tng6d4" path="res://scenes/utilities/metal_body_component/metal_body_component.tscn" id="4_d471h"]
+[ext_resource type="PackedScene" uid="uid://ca4wuknxpr2j1" path="res://scenes/utilities/catchable_component/catchable_component.tscn" id="6_klhhw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_72q2j"]
+radius = 2.0
+height = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l65os"]
+size = Vector2(4, 6)
+
+[node name="Coin" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_v1sc4")
+offset = Vector2(0.5, 0.5)
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_72q2j")
+
+[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("entity", "basic_physics") instance=ExtResource("2_fcg07")]
+entity = NodePath("..")
+item = ExtResource("3_c0hpa")
+basic_physics = NodePath("../BasicPhysicsComponent")
+
+[node name="BasicPhysicsComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("3_w7dwg")]
+entity = NodePath("..")
+
+[node name="MetalBodyComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("4_d471h")]
+entity = NodePath("..")
+
+[node name="CatchableComponent" parent="." node_paths=PackedStringArray("catchArea", "projectile_component") instance=ExtResource("6_klhhw")]
+time_uncatchable = 0.1
+item = ExtResource("3_c0hpa")
+catchArea = NodePath("../CatchHitbox")
+projectile_component = NodePath("../ProjectileComponent")
+
+[node name="CatchHitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CatchHitbox"]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_l65os")

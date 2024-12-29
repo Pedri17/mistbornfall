@@ -1,0 +1,88 @@
+[gd_scene load_steps=15 format=3 uid="uid://ddte3cvd27jvv"]
+
+[ext_resource type="Script" path="res://escenas_antiguas/entity/controllable_entity/player/player.gd" id="1_682co"]
+[ext_resource type="SpriteFrames" uid="uid://coq6w081mvq4i" path="res://escenas_antiguas/entity/controllable_entity/player/sprite_frames.tres" id="2_uei7i"]
+[ext_resource type="PackedScene" uid="uid://b6u70626vddts" path="res://escenas_antiguas/entity/controllable_entity/shoot/shoot_component.tscn" id="4_0kg0q"]
+[ext_resource type="PackedScene" uid="uid://bao313p8fe0jf" path="res://scenes/utilities/inventory_component/inventory_component.tscn" id="4_okoy6"]
+[ext_resource type="PackedScene" uid="uid://bxrjha0uuwgrd" path="res://scenes/utilities/inventory_component/inventory_displayer_addon.tscn" id="5_lgb4p"]
+[ext_resource type="PackedScene" uid="uid://0njxx3mko383" path="res://escenas_antiguas/entity/controllable_entity/hurt/hurt_death_component.tscn" id="5_yel6v"]
+[ext_resource type="PackedScene" uid="uid://bfg8sc847brwr" path="res://escenas_antiguas/entity/allomancy/allomancy_component.tscn" id="6_18tou"]
+[ext_resource type="PackedScene" uid="uid://c4clm3nvek7no" path="res://escenas_antiguas/entity/allomancy/iron_power.tscn" id="7_03oi4"]
+[ext_resource type="PackedScene" uid="uid://b4cqw70mbeds1" path="res://escenas_antiguas/entity/controllable_entity/movement/movement_component.tscn" id="8_di3us"]
+[ext_resource type="PackedScene" uid="uid://cnvprp5l6me1r" path="res://escenas_antiguas/entity/allomancy/steel_power.tscn" id="8_syqbh"]
+[ext_resource type="AnimationLibrary" uid="uid://hea55g0qtja" path="res://escenas_antiguas/entity/controllable_entity/player/effect_animations.res" id="10_iiqfo"]
+[ext_resource type="PackedScene" path="res://escenas_antiguas/entity/controllable_entity/device_controller/device_controller_component.tscn" id="10_k8k0o"]
+[ext_resource type="AnimationLibrary" uid="uid://dxkxnoikr7vf5" path="res://escenas_antiguas/entity/controllable_entity/player/sprite_animations.res" id="11_7qhll"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kfmk5"]
+radius = 4.0
+height = 16.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(1, 0)
+collision_layer = 2
+collision_mask = 19
+velocity = Vector2(0, 120710)
+script = ExtResource("1_682co")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 6
+position = Vector2(1, 0)
+sprite_frames = ExtResource("2_uei7i")
+animation = &"idle"
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(1, 7)
+shape = SubResource("CapsuleShape2D_kfmk5")
+
+[node name="SpriteAnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_process = 0
+libraries = {
+"": ExtResource("11_7qhll")
+}
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("10_iiqfo")
+}
+
+[node name="HurtDeathComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("5_yel6v")]
+entity = NodePath("..")
+
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("entity", "input", "sprite", "sprite_animation_player", "effect_animation_player", "shoot_component") instance=ExtResource("8_di3us")]
+entity = NodePath("..")
+input = NodePath("../DeviceControllerComponent")
+sprite = NodePath("../Sprite")
+sprite_animation_player = NodePath("../SpriteAnimationPlayer")
+effect_animation_player = NodePath("../EffectAnimationPlayer")
+shoot_component = NodePath("../ShootComponent")
+
+[node name="ShootComponent" parent="." node_paths=PackedStringArray("entity", "inventory_component", "input", "movement_component") instance=ExtResource("4_0kg0q")]
+entity = NodePath("..")
+inventory_component = NodePath("../InventoryComponent")
+input = NodePath("../DeviceControllerComponent")
+movement_component = NodePath("../MovementComponent")
+
+[node name="InventoryComponent" parent="." node_paths=PackedStringArray("input_component", "displayer") instance=ExtResource("4_okoy6")]
+input_component = NodePath("../DeviceControllerComponent")
+displayer = NodePath("InventoryDisplayerAddon")
+
+[node name="InventoryDisplayerAddon" parent="InventoryComponent" node_paths=PackedStringArray("inventory") instance=ExtResource("5_lgb4p")]
+position = Vector2(2, -4)
+inventory = NodePath("..")
+
+[node name="AllomancyComponent" parent="." node_paths=PackedStringArray("entity", "first_power", "second_power", "input") instance=ExtResource("6_18tou")]
+entity = NodePath("..")
+first_power = NodePath("IronPower")
+second_power = NodePath("SteelPower")
+input = NodePath("../DeviceControllerComponent")
+
+[node name="IronPower" parent="AllomancyComponent" instance=ExtResource("7_03oi4")]
+
+[node name="SteelPower" parent="AllomancyComponent" instance=ExtResource("8_syqbh")]
+
+[node name="DeviceControllerComponent" parent="." instance=ExtResource("10_k8k0o")]
+action_left = &"move_left"
+action_right = &"move_right"
+action_up = &"move_up"
+action_down = &"move_down"

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy2gkrlycfn3a"]
+
+[ext_resource type="Script" path="res://scenes/entity/world_entity/nailable/nailable_component.gd" id="1_lyxr7"]
+
+[node name="NailableComponent" type="Area2D"]
+script = ExtResource("1_lyxr7")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

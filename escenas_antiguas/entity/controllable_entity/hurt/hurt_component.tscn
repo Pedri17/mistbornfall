@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbh6vo6otrtwv"]
+
+[ext_resource type="Script" path="res://scenes/entity/controllable_entity/hurt/hurt_death_component.gd" id="1_pw6sm"]
+
+[node name="HurtComponent" type="Node"]
+script = ExtResource("1_pw6sm")

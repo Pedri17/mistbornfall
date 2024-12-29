@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp6s2j4yi5f7y"]
+
+[ext_resource type="Script" path="res://scenes/entity/character/behaviors/scripts/run.gd" id="1_sa4lb"]
+
+[node name="Run" type="Node"]
+script = ExtResource("1_sa4lb")
+
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.083
+one_shot = true

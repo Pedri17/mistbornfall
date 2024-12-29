@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b4cqw70mbeds1"]
+
+[node name="MovementComponent" type="Node2D"]
+
+[node name="RaycastWallUpper" type="RayCast2D" parent="."]
+position = Vector2(2, 2)
+target_position = Vector2(11, 0)
+
+[node name="RaycastWallMiddle" type="RayCast2D" parent="."]
+position = Vector2(2, 7)
+target_position = Vector2(11, 0)
+collide_with_areas = true
+
+[node name="RaycastWallLower" type="RayCast2D" parent="."]
+position = Vector2(2, 9)
+target_position = Vector2(11, 0)
+
+[node name="TimerOnTurn" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
+[node name="TimerOnFall" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.083
+one_shot = true
+
+[connection signal="timeout" from="TimerOnTurn" to="." method="_on_timer_on_turn_timeout"]
+[connection signal="timeout" from="TimerOnFall" to="." method="_on_timer_on_fall_timeout"]

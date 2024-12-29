@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6u70626vddts"]
+
+[ext_resource type="Script" path="res://scenes/entity/controllable_entity/shoot/shoot_component.gd" id="1_lvlyg"]
+[ext_resource type="Texture2D" uid="uid://n05xwogomxnq" path="res://assets/sprites/player.png" id="2_myu31"]
+
+[node name="ShootComponent" type="Node2D"]
+script = ExtResource("1_lvlyg")
+
+[node name="SprArrow" type="Sprite2D" parent="."]
+z_index = 4
+position = Vector2(1, 7)
+texture = ExtResource("2_myu31")
+offset = Vector2(16, 0)
+hframes = 9
+vframes = 12
+frame = 45

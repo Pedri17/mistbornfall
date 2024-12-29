@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca4wuknxpr2j1"]
+
+[ext_resource type="Script" path="res://scenes/utilities/catchable_component/catchable_component.gd" id="1_1bryr"]
+
+[node name="CatchableComponent" type="Node"]
+script = ExtResource("1_1bryr")
+
+[node name="TimerToCatch" type="Timer" parent="."]
+process_callback = 0
+one_shot = true

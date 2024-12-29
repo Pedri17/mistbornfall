@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsfddtsoumrfw"]
+
+[ext_resource type="Script" path="res://scenes/entity/character/behaviors/scripts/wall_jump.gd" id="1_tt7ia"]
+
+[node name="WallJump" type="Node"]
+script = ExtResource("1_tt7ia")

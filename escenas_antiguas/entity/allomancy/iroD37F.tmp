@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgfvwud6q40bk"]
+
+[ext_resource type="Script" path="res://scenes/base/allomancy/iron_steel_power.gd" id="1_87kqu"]
+
+[node name="IronSteelPower" type="Node"]
+script = ExtResource("1_87kqu")

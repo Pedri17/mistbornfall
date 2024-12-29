@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://ddloi0qissisr"]
+
+[ext_resource type="Texture2D" uid="uid://b8y84cfhvmawr" path="res://assets/sprites/projectiles.png" id="1_tywad"]
+[ext_resource type="Script" path="res://scenes/base/item.gd" id="1_yk7qe"]
+[ext_resource type="PackedScene" uid="uid://iv7ko44prhkq" path="res://scenes/base/basic_physics/basic_physics_component.tscn" id="3_uv1l2"]
+[ext_resource type="PackedScene" uid="uid://d68r15lnsetv" path="res://scenes/projectile/projectile_component.tscn" id="4_7u778"]
+[ext_resource type="PackedScene" uid="uid://ck5at5rdf4kqh" path="res://scenes/base/catchable/catchable_component.tscn" id="5_cofrb"]
+[ext_resource type="PackedScene" uid="uid://cy2gkrlycfn3a" path="res://scenes/base/nailable/nailable_component.tscn" id="6_l3lpy"]
+[ext_resource type="PackedScene" uid="uid://cyf5iedmxht0n" path="res://scenes/base/platform_area/platform_area_component.tscn" id="7_3rocu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bqfye"]
+size = Vector2(20, 4)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_51rqi"]
+radius = 3.0
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o48x0"]
+radius = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_30umv"]
+size = Vector2(23, 2)
+
+[node name="Spear" type="CharacterBody2D"]
+disable_mode = 1
+collision_layer = 4
+
+[node name="Item" type="Node" parent="."]
+script = ExtResource("1_yk7qe")
+entity_scene_path = "res://scenes/projectile/spear.tscn"
+metalic_weight = 10
+weight = 10.0
+spaces = 6
+y_frame = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 0.5)
+texture = ExtResource("1_tywad")
+offset = Vector2(-0.5, -0.5)
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="Physicsbox" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, 0)
+shape = SubResource("RectangleShape2D_bqfye")
+
+[node name="BasicPhysicsComponent" parent="." node_paths=PackedStringArray("entity", "nailable_component") instance=ExtResource("3_uv1l2")]
+entity = NodePath("..")
+nailable_component = NodePath("../NailableComponent")
+floor_sliding = false
+
+[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("item", "entity", "basic_physics") instance=ExtResource("4_7u778")]
+item = NodePath("../Item")
+entity = NodePath("..")
+basic_physics = NodePath("../BasicPhysicsComponent")
+no_gravity_time = 0.3
+shoot_velocity = 350
+
+[node name="CatchableComponent" parent="." node_paths=PackedStringArray("item") instance=ExtResource("5_cofrb")]
+time_uncatchable = 0.1
+item = NodePath("../Item")
+
+[node name="Catchbox" type="CollisionShape2D" parent="CatchableComponent"]
+position = Vector2(-0.5, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_51rqi")
+debug_color = Color(0.274863, 0.623044, 0.313048, 0.42)
+
+[node name="NailableComponent" parent="." node_paths=PackedStringArray("entity", "projectile") instance=ExtResource("6_l3lpy")]
+entity = NodePath("..")
+nail_on_shot = true
+projectile = NodePath("../ProjectileComponent")
+
+[node name="Nailbox" type="CollisionShape2D" parent="NailableComponent"]
+position = Vector2(8, 0)
+shape = SubResource("CircleShape2D_o48x0")
+debug_color = Color(0.898039, 0.941176, 0.372549, 0.419608)
+
+[node name="PlatformAreaComponent" parent="." node_paths=PackedStringArray("nailable_component") instance=ExtResource("7_3rocu")]
+enable = false
+enable_on_nail = true
+nailable_component = NodePath("../NailableComponent")
+
+[node name="Platformbox" type="CollisionShape2D" parent="PlatformAreaComponent"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_30umv")
+one_way_collision = true
+debug_color = Color(0.664863, 0.624982, 0.068343, 0.419608)

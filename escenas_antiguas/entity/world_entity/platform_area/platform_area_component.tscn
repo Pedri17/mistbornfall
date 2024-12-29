@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyf5iedmxht0n"]
+
+[ext_resource type="Script" path="res://scenes/entity/world_entity/platform_area/platform_area_component.gd" id="1_0tsb2"]
+
+[node name="PlatformAreaComponent" type="AnimatableBody2D"]
+collision_layer = 16
+collision_mask = 3
+sync_to_physics = false
+script = ExtResource("1_0tsb2")
+
+[node name="RaycastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-10, 0)
+
+[node name="RaycastRight" type="RayCast2D" parent="."]
+target_position = Vector2(10, 0)

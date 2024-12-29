@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://dorndiroakxsa"]
+
+[ext_resource type="Script" path="res://scenes/entity/controllable_entity/inventory/item.gd" id="1_5lomx"]
+[ext_resource type="Texture2D" uid="uid://che80vkthi5ew" path="res://assets/sprites/projectiles.png" id="2_qcwj3"]
+[ext_resource type="PackedScene" uid="uid://d68r15lnsetv" path="res://scenes/utilities/projectile_component/projectile_component.tscn" id="3_gksyl"]
+[ext_resource type="PackedScene" uid="uid://iv7ko44prhkq" path="res://scenes/utilities/basic_physics/basic_physics_component.tscn" id="4_bsbmt"]
+[ext_resource type="PackedScene" uid="uid://ck5at5rdf4kqh" path="res://scenes/utilities/catchable_component/catchable_component2.tscn" id="4_vxtmt"]
+[ext_resource type="PackedScene" uid="uid://ww0477tng6d4" path="res://scenes/utilities/metal_body_component/metal_body_component.tscn" id="5_e8yg1"]
+[ext_resource type="PackedScene" uid="uid://blfso62hbndhx" path="res://escenas_antiguas/entity/world_entity/crash/crash_component.tscn" id="6_an2qj"]
+[ext_resource type="PackedScene" uid="uid://c0eppoh6jhfw4" path="res://escenas_antiguas/entity/damage_area.tscn" id="8_i1cer"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wpj7n"]
+size = Vector2(7, 5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hu00x"]
+radius = 3.0
+height = 8.0
+
+[node name="Coin" type="CharacterBody2D"]
+collision_layer = 4
+velocity = Vector2(0, 55385.1)
+
+[node name="Item" type="Node" parent="."]
+script = ExtResource("1_5lomx")
+entity_scene_path = "res://scenes/entity/world_entity/projectile/coin.tscn"
+metalic_weight = 1
+weight = 1.0
+spaces = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qcwj3")
+offset = Vector2(-0.5, -0.5)
+hframes = 2
+vframes = 2
+
+[node name="Physicsbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wpj7n")
+
+[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("item", "entity", "basic_physics") instance=ExtResource("3_gksyl")]
+item = NodePath("../Item")
+entity = NodePath("..")
+basic_physics = NodePath("../BasicPhysicsComponent")
+shoot_velocity = 300
+
+[node name="BasicPhysicsComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("4_bsbmt")]
+entity = NodePath("..")
+
+[node name="MetalBodyComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("5_e8yg1")]
+entity = NodePath("..")
+
+[node name="CrashComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("6_an2qj")]
+entity = NodePath("..")
+
+[node name="Catchbox" type="CollisionShape2D" parent="CrashComponent"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hu00x")
+debug_color = Color(0.274863, 0.623044, 0.313048, 0.42)
+
+[node name="CatchableComponent" parent="." node_paths=PackedStringArray("item", "projectile_component") instance=ExtResource("4_vxtmt")]
+time_uncatchable = 0.1
+item = NodePath("../Item")
+projectile_component = NodePath("../ProjectileComponent")
+
+[node name="Catchbox" type="CollisionShape2D" parent="CatchableComponent"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hu00x")
+debug_color = Color(0.274863, 0.623044, 0.313048, 0.42)
+
+[node name="DamageArea" parent="." instance=ExtResource("8_i1cer")]
+
+[node name="Hitbox" type="CollisionShape2D" parent="DamageArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hu00x")
+debug_color = Color(0.994538, 0, 0.220482, 0.42)

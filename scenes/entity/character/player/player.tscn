@@ -1,0 +1,455 @@
+[gd_scene load_steps=56 format=3 uid="uid://5r034rahne4w"]
+
+[ext_resource type="PackedScene" uid="uid://ddnfnolm5t03v" path="res://scenes/utilities/horizontal_movement/horizontal_movement.tscn" id="2_2d486"]
+[ext_resource type="PackedScene" uid="uid://j03dbfuacd3i" path="res://scenes/utilities/direction_controller/direction_controller.tscn" id="2_8nybr"]
+[ext_resource type="Texture2D" uid="uid://mfmhg6l5iaef" path="res://assets/sprites/player.png" id="2_r7gy3"]
+[ext_resource type="AnimationLibrary" uid="uid://dxkxnoikr7vf5" path="res://escenas_antiguas/entity/controllable_entity/player/sprite_animations.res" id="3_2f52l"]
+[ext_resource type="PackedScene" uid="uid://baq8puk8qjl4m" path="res://scenes/utilities/gravity_component/gravity_component.tscn" id="3_8g4hl"]
+[ext_resource type="AnimationLibrary" uid="uid://hea55g0qtja" path="res://escenas_antiguas/entity/controllable_entity/player/effect_animations.res" id="4_7p4qc"]
+[ext_resource type="Script" path="res://scenes/utilities/direction_controller/flippable/flippable_sprite.gd" id="4_dq8dp"]
+[ext_resource type="PackedScene" uid="uid://bao313p8fe0jf" path="res://scenes/utilities/inventory_component/inventory_component.tscn" id="5_cyajp"]
+[ext_resource type="PackedScene" uid="uid://dxmlgul0vcv5k" path="res://scenes/utilities/state_machine/state_machine.tscn" id="5_netop"]
+[ext_resource type="PackedScene" uid="uid://bxrjha0uuwgrd" path="res://scenes/utilities/inventory_component/inventory_displayer_addon.tscn" id="6_mly37"]
+[ext_resource type="PackedScene" uid="uid://b0youk0lu2br7" path="res://scenes/entity/character/behaviors/idle.tscn" id="7_3fxxl"]
+[ext_resource type="PackedScene" uid="uid://c25d05s85acr7" path="res://scenes/entity/character/behaviors/Jump.tscn" id="7_gvbo0"]
+[ext_resource type="PackedScene" uid="uid://cqgodw5le72w3" path="res://scenes/utilities/inventory_component/auxiliar/base_item_sprite.tscn" id="7_oyr2q"]
+[ext_resource type="Script" path="res://scenes/utilities/direction_controller/flippable/flippable_raycast.gd" id="7_ycyv6"]
+[ext_resource type="PackedScene" uid="uid://dp6s2j4yi5f7y" path="res://scenes/entity/character/behaviors/run.tscn" id="9_70ct1"]
+[ext_resource type="PackedScene" uid="uid://bb3y7st4af5pm" path="res://scenes/entity/character/behaviors/duck.tscn" id="10_g0wdi"]
+[ext_resource type="PackedScene" uid="uid://3yedhdbrwust" path="res://scenes/entity/character/behaviors/fall.tscn" id="10_lv362"]
+[ext_resource type="PackedScene" uid="uid://dx1rik15konmy" path="res://scenes/entity/character/behaviors/long_jump.tscn" id="11_cpbpx"]
+[ext_resource type="PackedScene" uid="uid://dsfddtsoumrfw" path="res://scenes/entity/character/behaviors/wall_jump.tscn" id="12_t6bx0"]
+[ext_resource type="Script" path="res://scenes/utilities/input_component/device_controller.gd" id="13_6oihj"]
+[ext_resource type="PackedScene" uid="uid://chl8kmlcgfwdu" path="res://scenes/entity/character/behaviors/wall_slide.tscn" id="13_xhx13"]
+[ext_resource type="PackedScene" uid="uid://b8im5d2nhlqjj" path="res://scenes/entity/character/behaviors/roll_jump.tscn" id="14_k4hd0"]
+[ext_resource type="PackedScene" uid="uid://c050fusgdq6mt" path="res://scenes/entity/character/behaviors/ledge_cling.tscn" id="15_l64nh"]
+[ext_resource type="PackedScene" uid="uid://1nheuxhgyapk" path="res://scenes/entity/character/behaviors/shoot.tscn" id="19_bwj2t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auocf"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(176, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tw4r8"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(192, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uggb"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(208, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1a86g"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(224, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge2gm"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(240, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twqsk"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(80, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nhke"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(96, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogpo5"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(112, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yv7sb"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(0, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hota3"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(64, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phoxb"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(80, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55ib8"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(96, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwutf"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(112, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssfjq"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yq4sk"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1lmk"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncuw5"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk0pe"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(128, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbcj5"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(160, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuws4"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(192, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4hxp"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(224, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7w0rq"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uu1g1"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7vbu"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwe8x"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qx3rq"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(16, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg6m7"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(32, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjook"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(0, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ws7m5"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(48, 96, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dlk15"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auocf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tw4r8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2uggb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1a86g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge2gm")
+}],
+"loop": false,
+"name": &"duck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twqsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nhke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogpo5")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yv7sb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hota3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phoxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55ib8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwutf")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssfjq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yq4sk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1lmk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncuw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk0pe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbcj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuws4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4hxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7w0rq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uu1g1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7vbu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwe8x")
+}],
+"loop": false,
+"name": &"roll",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qx3rq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg6m7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjook")
+}],
+"loop": true,
+"name": &"run",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ws7m5")
+}],
+"loop": true,
+"name": &"wall_slide",
+"speed": 1.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pauxl"]
+radius = 4.0
+height = 16.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="HorizontalMovement" parent="." node_paths=PackedStringArray("input", "character") instance=ExtResource("2_2d486")]
+input = NodePath("../DeviceController")
+character = NodePath("..")
+
+[node name="DirectionController" parent="." node_paths=PackedStringArray("input") instance=ExtResource("2_8nybr")]
+input = NodePath("../DeviceController")
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("character") instance=ExtResource("3_8g4hl")]
+character = NodePath("..")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("direction_controller")]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_dlk15")
+animation = &"idle"
+script = ExtResource("4_dq8dp")
+direction_controller = NodePath("../DirectionController")
+
+[node name="SpriteAnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_process = 0
+libraries = {
+"": ExtResource("3_2f52l")
+}
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("4_7p4qc")
+}
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(1, 7)
+shape = SubResource("CapsuleShape2D_pauxl")
+
+[node name="FaceRaycast" type="RayCast2D" parent="." node_paths=PackedStringArray("direction_controller")]
+target_position = Vector2(8, 0)
+script = ExtResource("7_ycyv6")
+direction_controller = NodePath("../DirectionController")
+
+[node name="WallRaycast" type="RayCast2D" parent="." node_paths=PackedStringArray("direction_controller")]
+position = Vector2(0, 8)
+target_position = Vector2(8, 0)
+script = ExtResource("7_ycyv6")
+direction_controller = NodePath("../DirectionController")
+
+[node name="InventoryComponent" parent="." node_paths=PackedStringArray("input_component") instance=ExtResource("5_cyajp")]
+input_component = NodePath("../DeviceController")
+
+[node name="InventoryDisplayerAddon" parent="InventoryComponent" node_paths=PackedStringArray("inventory") instance=ExtResource("6_mly37")]
+position = Vector2(1, -5)
+inventory = NodePath("..")
+base_item_sprite_dir = ExtResource("7_oyr2q")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("5_netop")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "input", "horizontal_movement", "FALL", "RUN", "JUMP", "ROLL_JUMP", "DUCK", "SHOOT") instance=ExtResource("7_3fxxl")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+input = NodePath("../../DeviceController")
+horizontal_movement = NodePath("../../HorizontalMovement")
+FALL = NodePath("../Fall")
+RUN = NodePath("../Run")
+JUMP = NodePath("../Jump")
+ROLL_JUMP = NodePath("../RollJump")
+DUCK = NodePath("../Duck")
+SHOOT = NodePath("../Shoot")
+
+[node name="Fall" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "second_animation_player", "input", "direction_controller", "horizontal_movement", "IDLE", "JUMP", "LEDGE_CLING", "WALL_SLIDE") instance=ExtResource("10_lv362")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+second_animation_player = NodePath("../../EffectAnimationPlayer")
+input = NodePath("../../DeviceController")
+direction_controller = NodePath("../../DirectionController")
+horizontal_movement = NodePath("../../HorizontalMovement")
+IDLE = NodePath("../Idle")
+JUMP = NodePath("../Jump")
+LEDGE_CLING = NodePath("../LedgeCling")
+WALL_SLIDE = NodePath("../WallSlide")
+
+[node name="Run" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "input", "horizontal_movement", "IDLE", "FALL", "JUMP", "DUCK", "ROLL_JUMP") instance=ExtResource("9_70ct1")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+input = NodePath("../../DeviceController")
+horizontal_movement = NodePath("../../HorizontalMovement")
+IDLE = NodePath("../Idle")
+FALL = NodePath("../Fall")
+JUMP = NodePath("../Jump")
+DUCK = NodePath("../Duck")
+ROLL_JUMP = NodePath("../RollJump")
+
+[node name="Jump" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "input", "gravity", "horizontal_movement", "IDLE", "FALL", "WALL_JUMP", "WALL_SLIDE") instance=ExtResource("7_gvbo0")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+input = NodePath("../../DeviceController")
+gravity = NodePath("../../GravityComponent")
+horizontal_movement = NodePath("../../HorizontalMovement")
+IDLE = NodePath("../Idle")
+FALL = NodePath("../Fall")
+WALL_JUMP = NodePath("../WallJump")
+WALL_SLIDE = NodePath("../WallSlide")
+
+[node name="Duck" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "second_animation_player", "input", "direction_controller", "horizontal_movement", "IDLE", "RUN", "FALL", "LONG_JUMP") instance=ExtResource("10_g0wdi")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+second_animation_player = NodePath("../../EffectAnimationPlayer")
+input = NodePath("../../DeviceController")
+direction_controller = NodePath("../../DirectionController")
+horizontal_movement = NodePath("../../HorizontalMovement")
+IDLE = NodePath("../Idle")
+RUN = NodePath("../Run")
+FALL = NodePath("../Fall")
+LONG_JUMP = NodePath("../LongJump")
+
+[node name="LongJump" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "input", "direction_controller", "IDLE", "FALL", "RUN", "DUCK") instance=ExtResource("11_cpbpx")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+input = NodePath("../../DeviceController")
+direction_controller = NodePath("../../DirectionController")
+IDLE = NodePath("../Idle")
+FALL = NodePath("../Fall")
+RUN = NodePath("../Run")
+DUCK = NodePath("../Duck")
+
+[node name="WallJump" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "wall_raycast", "input", "direction_controller", "IDLE", "JUMP", "FALL") instance=ExtResource("12_t6bx0")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+wall_raycast = NodePath("../../WallRaycast")
+input = NodePath("../../DeviceController")
+direction_controller = NodePath("../../DirectionController")
+IDLE = NodePath("../Idle")
+JUMP = NodePath("../Jump")
+FALL = NodePath("../Fall")
+
+[node name="WallSlide" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "wall_raycast", "input", "IDLE", "FALL", "WALL_JUMP", "LEDGE_CLING") instance=ExtResource("13_xhx13")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+wall_raycast = NodePath("../../WallRaycast")
+input = NodePath("../../DeviceController")
+IDLE = NodePath("../Idle")
+FALL = NodePath("../Fall")
+WALL_JUMP = NodePath("../WallJump")
+LEDGE_CLING = NodePath("../LedgeCling")
+
+[node name="RollJump" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "input", "direction_controller", "horizontal_movement", "IDLE", "FALL", "WALL_JUMP") instance=ExtResource("14_k4hd0")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+roll_jump_velocity = -350
+input = NodePath("../../DeviceController")
+direction_controller = NodePath("../../DirectionController")
+horizontal_movement = NodePath("../../HorizontalMovement")
+IDLE = NodePath("../Idle")
+FALL = NodePath("../Fall")
+WALL_JUMP = NodePath("../WallJump")
+
+[node name="LedgeCling" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "second_animation_player", "face_raycast", "input", "direction_controller", "gravity", "JUMP", "FALL", "WALL_JUMP") instance=ExtResource("15_l64nh")]
+character = NodePath("../..")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+second_animation_player = NodePath("../../EffectAnimationPlayer")
+face_raycast = NodePath("../../FaceRaycast")
+input = NodePath("../../DeviceController")
+direction_controller = NodePath("../../DirectionController")
+gravity = NodePath("../../GravityComponent")
+JUMP = NodePath("../Jump")
+FALL = NodePath("../Fall")
+WALL_JUMP = NodePath("../WallJump")
+
+[node name="Shoot" parent="StateMachine" node_paths=PackedStringArray("character", "input", "inventory", "IDLE", "FALL") instance=ExtResource("19_bwj2t")]
+character = NodePath("../..")
+input = NodePath("../../DeviceController")
+inventory = NodePath("../../InventoryComponent")
+IDLE = NodePath("../Idle")
+FALL = NodePath("../Fall")
+
+[node name="DeviceController" type="Node" parent="."]
+script = ExtResource("13_6oihj")
+action_buttons = Array[StringName]([&"jump", &"roll_slot", &"shoot"])
+action_left = &"left"
+action_right = &"right"
+action_up = &"up"
+action_down = &"down"

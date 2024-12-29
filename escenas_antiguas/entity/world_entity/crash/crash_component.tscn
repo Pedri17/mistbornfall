@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://blfso62hbndhx"]
+
+[ext_resource type="Script" path="res://scenes/entity/world_entity/crash/crash_component.gd" id="1_01cvp"]
+
+[node name="CrashComponent" type="Area2D"]
+collision_layer = 32
+collision_mask = 33
+script = ExtResource("1_01cvp")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

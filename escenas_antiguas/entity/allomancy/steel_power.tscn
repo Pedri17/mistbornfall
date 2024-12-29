@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnvprp5l6me1r"]
+
+[ext_resource type="Script" path="res://scenes/entity/allomancy/physical_power.gd" id="1_65tid"]
+
+[node name="SteelPower" type="Node"]
+script = ExtResource("1_65tid")
+is_steel_power = true

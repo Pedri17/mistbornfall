@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c25d05s85acr7"]
+
+[ext_resource type="Script" path="res://scenes/entity/character/behaviors/scripts/jump.gd" id="1_phu05"]
+
+[node name="Jump" type="Node"]
+script = ExtResource("1_phu05")
+
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.083
+one_shot = true
+
+[connection signal="timeout" from="CoyoteJumpTimer" to="." method="_on_coyote_jump_timer_timeout"]

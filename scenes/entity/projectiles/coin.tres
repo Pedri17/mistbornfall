@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://bd5826crnfia"]
+
+[ext_resource type="Script" path="res://scenes/utilities/inventory_component/auxiliar/item.gd" id="1_wn755"]
+
+[resource]
+resource_name = "coin"
+script = ExtResource("1_wn755")
+entity_scene_path = "res://scenes/entity/projectiles/coin.tscn"
+metalic_weight = 1
+weight = 1.0
+spaces = 1
+texture_y_frame_coord = 0

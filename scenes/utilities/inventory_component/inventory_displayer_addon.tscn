@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxrjha0uuwgrd"]
+
+[ext_resource type="Script" path="res://scenes/utilities/inventory_component/auxiliar/inventory_displayer_addon.gd" id="1_wyjsi"]
+[ext_resource type="PackedScene" uid="uid://cqgodw5le72w3" path="res://scenes/utilities/inventory_component/auxiliar/base_item_sprite.tscn" id="2_effgl"]
+
+[node name="InventoryDisplayerAddon" type="Node2D"]
+z_index = 50
+z_as_relative = false
+script = ExtResource("1_wyjsi")
+
+[node name="Placeholder" parent="." instance=ExtResource("2_effgl")]
+frame = 6

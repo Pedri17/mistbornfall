@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c050fusgdq6mt"]
+
+[ext_resource type="Script" path="res://scenes/entity/character/behaviors/scripts/ledge_cling.gd" id="1_g0a5b"]
+
+[node name="LedgeCling" type="Node"]
+script = ExtResource("1_g0a5b")

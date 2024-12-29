@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqgodw5le72w3"]
+
+[ext_resource type="Texture2D" uid="uid://d1y3j34hhf18a" path="res://assets/sprites/items.png" id="1_0lc2g"]
+
+[node name="SpriteItem" type="Sprite2D"]
+position = Vector2(0, -5)
+texture = ExtResource("1_0lc2g")
+hframes = 3
+vframes = 16

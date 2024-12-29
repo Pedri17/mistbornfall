@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://iv7ko44prhkq"]
+
+[ext_resource type="Script" path="res://scenes/utilities/basic_physics/basic_physics_component.gd" id="1_adhpu"]
+
+[node name="BasicPhysicsComponent" type="Node"]
+script = ExtResource("1_adhpu")
+
+[node name="TimerToStartFall" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="TimerToStartFall" to="." method="_on_timer_to_start_fall_timeout"]

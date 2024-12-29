@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://gwe04k6f356s"]
+
+[ext_resource type="Script" path="res://scenes/entity/controllable_entity/inventory/item.gd" id="1_ykuq8"]
+[ext_resource type="Texture2D" uid="uid://che80vkthi5ew" path="res://assets/sprites/projectiles.png" id="2_uo1a5"]
+[ext_resource type="PackedScene" uid="uid://iv7ko44prhkq" path="res://scenes/utilities/basic_physics/basic_physics_component.tscn" id="3_0tte6"]
+[ext_resource type="PackedScene" uid="uid://d68r15lnsetv" path="res://scenes/utilities/projectile_component/projectile_component.tscn" id="3_saw11"]
+[ext_resource type="PackedScene" uid="uid://ck5at5rdf4kqh" path="res://scenes/utilities/catchable_component/catchable_component2.tscn" id="4_yl2m4"]
+[ext_resource type="PackedScene" uid="uid://ww0477tng6d4" path="res://scenes/utilities/metal_body_component/metal_body_component.tscn" id="5_sphlo"]
+[ext_resource type="PackedScene" uid="uid://blfso62hbndhx" path="res://escenas_antiguas/entity/world_entity/crash/crash_component.tscn" id="6_p8yro"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dstpi"]
+size = Vector2(11, 4)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l02ll"]
+radius = 3.0
+height = 12.0
+
+[node name="Spike" type="CharacterBody2D"]
+disable_mode = 1
+collision_layer = 4
+
+[node name="Item" type="Node" parent="."]
+script = ExtResource("1_ykuq8")
+entity_scene_path = "res://scenes/entity/world_entity/projectile/spike.tscn"
+metalic_weight = 5
+weight = 5.0
+spaces = 3
+y_frame = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 0.5)
+texture = ExtResource("2_uo1a5")
+offset = Vector2(-0.5, -0.5)
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="Physicsbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dstpi")
+
+[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("item", "entity", "basic_physics") instance=ExtResource("3_saw11")]
+item = NodePath("../Item")
+entity = NodePath("..")
+basic_physics = NodePath("../BasicPhysicsComponent")
+shoot_velocity = 350
+
+[node name="BasicPhysicsComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("3_0tte6")]
+entity = NodePath("..")
+
+[node name="MetalBodyComponent" parent="." instance=ExtResource("5_sphlo")]
+
+[node name="CrashComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("6_p8yro")]
+entity = NodePath("..")
+
+[node name="Catchbox" type="CollisionShape2D" parent="CrashComponent"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_l02ll")
+debug_color = Color(0.274863, 0.623044, 0.313048, 0.42)
+
+[node name="CatchableComponent" parent="." node_paths=PackedStringArray("item") instance=ExtResource("4_yl2m4")]
+time_uncatchable = 0.1
+item = NodePath("../Item")
+
+[node name="Catchbox" type="CollisionShape2D" parent="CatchableComponent"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_l02ll")
+debug_color = Color(0.274863, 0.623044, 0.313048, 0.42)

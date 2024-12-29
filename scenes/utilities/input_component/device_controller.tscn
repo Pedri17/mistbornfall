@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://lmx7qkba61ts"]
+
+[ext_resource type="Script" path="res://scenes/utilities/input_component/device_controller.gd" id="1_4u233"]
+
+[node name="DeviceController" type="Node"]
+script = ExtResource("1_4u233")
