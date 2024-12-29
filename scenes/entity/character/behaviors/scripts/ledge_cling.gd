@@ -19,9 +19,11 @@ extends State
 var ledge_direction: int = 1
 
 
-func try_enter() -> void:
+func try_enter() -> bool:
 	if character.is_on_wall() and not face_raycast.is_colliding():
 		finished.emit(name)
+		return true
+	return false
 
 
 func enter(previous_state_path: String, data := {}) -> void:
@@ -38,14 +40,11 @@ func physics_update(_delta: float) -> void:
 	# State change.
 	if FALL and input.left_joystick.get_horizontal_sign() != ledge_direction:
 		finished.emit(FALL.name)
-	elif (
-		WALL_JUMP 
-		and input.left_joystick.get_horizontal_sign() == -direction_controller.direction
-		and input.buttons[WALL_JUMP.INPUT].pressed
-	):
-		finished.emit(WALL_JUMP.name)
-	elif JUMP and input.buttons[JUMP.INPUT].pressed:
-		finished.emit(JUMP.name)
+		return
+	elif WALL_JUMP and WALL_JUMP.try_enter():
+		return
+	if JUMP and JUMP.try_enter():
+		return
 
 
 func exit():

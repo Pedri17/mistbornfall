@@ -22,9 +22,11 @@ func _ready() -> void:
 	direction_controller.direction_changed.connect(_on_direction_changed)
 
 
-func try_enter() -> void:
+func try_enter() -> bool:
 	if input.buttons[INPUT].pressing:
 		finished.emit(name)
+		return true
+	return false
 
 
 func enter(previous_state_path: String, data := {}) -> void:
@@ -39,14 +41,14 @@ func physics_update(_delta: float) -> void:
 	
 	## Change state.
 	if not input.buttons[INPUT].pressing:
-		if RUN and not input.left_joystick.horizontal_aprox_zero():
-			finished.emit(RUN.name)
-		elif IDLE:
-			finished.emit(IDLE.name)
-	elif FALL and (not character.is_on_floor() and character.velocity.y > 10):
-		finished.emit(FALL.name)
-	elif LONG_JUMP and input.buttons[LONG_JUMP.INPUT].pressed:
-		finished.emit(LONG_JUMP.name)
+		if RUN and RUN.try_enter():
+			return
+		elif IDLE and IDLE.try_enter():
+			return
+	if FALL and FALL.try_enter():
+		return
+	if LONG_JUMP and LONG_JUMP.try_enter():
+		return
 
 
 func _on_direction_changed(_last_direction: int, _new_direction: int) -> void:

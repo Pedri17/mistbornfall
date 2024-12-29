@@ -7,19 +7,21 @@ extends State
 @export var animation_player: AnimationPlayer
 @export var second_animation_player: AnimationPlayer
 @export_group("Components")
-@export var input: InputComponent
 @export var direction_controller: DirectionController
 @export var horizontal_movement: HorizontalMovement
 @export_group("Behaviors")
 @export var IDLE: IdleCharacterBehavior
+@export var RUN: RunCharacterBehavior
 @export var JUMP: JumpCharacterBehavior 
 @export var LEDGE_CLING: LedgeClingCharacterBehavior
 @export var WALL_SLIDE: WallSlideCharacterBehavior
 
 
-func try_enter() -> void:
+func try_enter() -> bool:
 	if not character.is_on_floor() and character.velocity.y > 10:
 		finished.emit(name)
+		return true
+	return false
 
 
 func enter(previous_state_path: String, data := {}) -> void:
@@ -36,14 +38,11 @@ func physics_update(delta: float) -> void:
 		second_animation_player.play(LAND_ANIMATION)
 	
 	# State change.
-	if IDLE and (character.is_on_floor() and character.velocity.y == 0):
-		finished.emit(IDLE.name)
-	elif (
-		WALL_SLIDE 
-		and character.is_on_wall() 
-		and WALL_SLIDE.wall_raycast.is_colliding()
-		and not input.left_joystick.horizontal_aprox_zero()
-	):
-		finished.emit(WALL_SLIDE.name)
-	elif JUMP and JUMP.can_do_coyote_jump and input.buttons[JUMP.INPUT].pressed:
-		finished.emit(JUMP.name)
+	if IDLE and IDLE.try_enter():
+		return
+	elif RUN and RUN.try_enter():
+		return
+	elif WALL_SLIDE and WALL_SLIDE.try_enter():
+		return
+	elif JUMP and JUMP.can_do_coyote_jump and JUMP.try_enter():
+		return

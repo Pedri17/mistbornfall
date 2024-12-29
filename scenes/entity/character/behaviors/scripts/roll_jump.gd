@@ -24,9 +24,11 @@ func _ready() -> void:
 	direction_controller.direction_changed.connect(on_changed_direction)
 
 
-func try_enter() -> void:
+func try_enter() -> bool:
 	if input.buttons[INPUT].pressed and can_do_roll_jump:
 		finished.emit(name)
+		return true
+	return false
 
 
 func enter(previous_state_path: String, data := {}) -> void:
@@ -41,18 +43,12 @@ func physics_update(_delta: float) -> void:
 		horizontal_movement.try_move()
 	
 	# State change
-	if FALL and (not character.is_on_floor() and character.velocity.y > 10):
-		finished.emit(FALL.name)
-	elif (
-		WALL_JUMP
-		and (
-			(WALL_JUMP.wall_raycast.is_colliding() or character.is_on_wall())
-			and input.buttons[WALL_JUMP.INPUT].pressed
-		)
-	):
-		finished.emit(WALL_JUMP.name)
-	elif IDLE and character.is_on_floor():
-		finished.emit(IDLE.name)
+	if FALL and FALL.try_enter():
+		return
+	elif WALL_JUMP and WALL_JUMP.try_enter():
+		return
+	elif IDLE and IDLE.try_enter():
+		return
 
 
 func on_changed_direction(_last_direction: int, _new_direction: int):

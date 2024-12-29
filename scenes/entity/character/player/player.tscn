@@ -307,6 +307,7 @@ position = Vector2(1, 7)
 shape = SubResource("CapsuleShape2D_pauxl")
 
 [node name="FaceRaycast" type="RayCast2D" parent="." node_paths=PackedStringArray("direction_controller")]
+position = Vector2(0, 3)
 target_position = Vector2(8, 0)
 script = ExtResource("7_ycyv6")
 direction_controller = NodePath("../DirectionController")
@@ -340,14 +341,14 @@ ROLL_JUMP = NodePath("../RollJump")
 DUCK = NodePath("../Duck")
 SHOOT = NodePath("../Shoot")
 
-[node name="Fall" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "second_animation_player", "input", "direction_controller", "horizontal_movement", "IDLE", "JUMP", "LEDGE_CLING", "WALL_SLIDE") instance=ExtResource("10_lv362")]
+[node name="Fall" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "second_animation_player", "direction_controller", "horizontal_movement", "IDLE", "RUN", "JUMP", "LEDGE_CLING", "WALL_SLIDE") instance=ExtResource("10_lv362")]
 character = NodePath("../..")
 animation_player = NodePath("../../SpriteAnimationPlayer")
 second_animation_player = NodePath("../../EffectAnimationPlayer")
-input = NodePath("../../DeviceController")
 direction_controller = NodePath("../../DirectionController")
 horizontal_movement = NodePath("../../HorizontalMovement")
 IDLE = NodePath("../Idle")
+RUN = NodePath("../Run")
 JUMP = NodePath("../Jump")
 LEDGE_CLING = NodePath("../LedgeCling")
 WALL_SLIDE = NodePath("../WallSlide")
@@ -396,22 +397,24 @@ FALL = NodePath("../Fall")
 RUN = NodePath("../Run")
 DUCK = NodePath("../Duck")
 
-[node name="WallJump" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "wall_raycast", "input", "direction_controller", "IDLE", "JUMP", "FALL") instance=ExtResource("12_t6bx0")]
+[node name="WallJump" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "wall_raycast", "input", "direction_controller", "IDLE", "RUN", "JUMP", "FALL") instance=ExtResource("12_t6bx0")]
 character = NodePath("../..")
 animation_player = NodePath("../../SpriteAnimationPlayer")
 wall_raycast = NodePath("../../WallRaycast")
 input = NodePath("../../DeviceController")
 direction_controller = NodePath("../../DirectionController")
 IDLE = NodePath("../Idle")
+RUN = NodePath("../Run")
 JUMP = NodePath("../Jump")
 FALL = NodePath("../Fall")
 
-[node name="WallSlide" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "wall_raycast", "input", "IDLE", "FALL", "WALL_JUMP", "LEDGE_CLING") instance=ExtResource("13_xhx13")]
+[node name="WallSlide" parent="StateMachine" node_paths=PackedStringArray("character", "animation_player", "wall_raycast", "input", "IDLE", "RUN", "FALL", "WALL_JUMP", "LEDGE_CLING") instance=ExtResource("13_xhx13")]
 character = NodePath("../..")
 animation_player = NodePath("../../SpriteAnimationPlayer")
 wall_raycast = NodePath("../../WallRaycast")
 input = NodePath("../../DeviceController")
 IDLE = NodePath("../Idle")
+RUN = NodePath("../Run")
 FALL = NodePath("../Fall")
 WALL_JUMP = NodePath("../WallJump")
 LEDGE_CLING = NodePath("../LedgeCling")

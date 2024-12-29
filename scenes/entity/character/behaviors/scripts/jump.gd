@@ -29,9 +29,11 @@ func _ready() -> void:
 	gravity.floor_changed.connect(_on_floor_changed)
 
 
-func try_enter() -> void:
+func try_enter() -> bool:
 	if input.buttons[INPUT].pressed:
 		finished.emit(name)
+		return true
+	return false
 
 
 func enter(previous_state_path: String, data := {}) -> void:
@@ -60,21 +62,14 @@ func physics_update(_delta: float) -> void:
 			actual_high_jump_height += high_jump_acceleration
 
 	## State change.
-	if FALL and (not input.buttons[INPUT].pressing and character.velocity.y > 10):
-		finished.emit(FALL.name)
-	elif WALL_JUMP and (
-		WALL_JUMP.wall_raycast.is_colliding()
-		and input.buttons[WALL_JUMP.INPUT].pressed
-	):
-		finished.emit(FALL.name)
-	elif WALL_SLIDE and (
-		WALL_SLIDE.wall_raycast.is_colliding()
-		and character.is_on_wall()
-		and not input.left_joystick.horizontal_aprox_zero()
-	):
-		finished.emit(WALL_SLIDE.name)
-	elif IDLE and character.is_on_floor():
-		finished.emit(IDLE.name)
+	if FALL and FALL.try_enter():
+		return
+	elif WALL_JUMP and WALL_JUMP.try_enter():
+		return
+	elif WALL_SLIDE and WALL_SLIDE.try_enter():
+		return
+	elif IDLE and IDLE.try_enter():
+		return
 
 
 func _on_coyote_jump_timer_timeout() -> void:

@@ -16,13 +16,15 @@ extends State
 @export var SHOOT: ShootCharacterBehavior
 
 
-func try_enter() -> void:
+func try_enter() -> bool:
 	if (
 		character.is_on_floor() 
 		and character.velocity.y == 0 
 		and input.left_joystick.horizontal_aprox_zero()
 	):
 		finished.emit(name)
+		return true
+	return false
 
 
 func enter(previous_state_path: String, data := {}) -> void:
@@ -35,19 +37,13 @@ func physics_update(_delta: float) -> void:
 		horizontal_movement.try_move()
 	
 	# State change.
-	if FALL and (not character.is_on_floor() and character.velocity.y > 10):
-		finished.emit(FALL.name)
-	elif RUN and not input.left_joystick.horizontal_aprox_zero():
-		finished.emit(RUN.name)
-	elif (
-		ROLL_JUMP 
-		and ROLL_JUMP.can_do_roll_jump 
-		and input.buttons[ROLL_JUMP.INPUT].pressed
-	):
-		finished.emit(ROLL_JUMP.name)
-	elif JUMP and input.buttons[JUMP.INPUT].pressed:
-		finished.emit(JUMP.name)
-	elif DUCK and input.buttons[DUCK.INPUT].pressing:
-		finished.emit(DUCK.name)
-	elif SHOOT and input.buttons[SHOOT.INPUT].pressing:
-		SHOOT.try_enter()
+	if FALL and FALL.try_enter():
+		return
+	elif RUN and RUN.try_enter():
+		return
+	elif ROLL_JUMP and ROLL_JUMP.try_enter():
+		return
+	elif JUMP and JUMP.try_enter():
+		return
+	elif DUCK and DUCK.try_enter():
+		return

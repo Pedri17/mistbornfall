@@ -13,13 +13,16 @@ extends State
 @export var direction_controller: DirectionController
 @export_group("Behaviors")
 @export var IDLE: IdleCharacterBehavior
+@export var RUN: RunCharacterBehavior
 @export var JUMP: JumpCharacterBehavior
 @export var FALL: FallCharacterBehavior
 
 
-func try_enter() -> void:
+func try_enter() -> bool:
 	if input.buttons[INPUT].pressed and wall_raycast.is_colliding():
 		finished.emit(name)
+		return true
+	return false
 
 
 func enter(previous_state_path: String, data := {}) -> void:
@@ -31,7 +34,12 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 func physics_update(_delta: float) -> void:
 	## State change.
-	if FALL and (not input.buttons[INPUT].pressing and character.velocity.y > 10):
+	if FALL and not input.buttons[INPUT].pressing:
 		finished.emit(FALL.name)
-	elif IDLE and character.is_on_floor():
-		finished.emit(IDLE.name)
+		return
+	elif FALL and FALL.try_enter():
+		return
+	elif RUN and RUN.try_enter():
+		return
+	elif IDLE and IDLE.try_enter():
+		return

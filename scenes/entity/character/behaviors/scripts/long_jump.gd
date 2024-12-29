@@ -17,9 +17,11 @@ extends State
 @export var DUCK: DuckCharacterBehavior
 
 
-func try_enter() -> void:
+func try_enter() -> bool:
 	if input.buttons[INPUT].pressed:
 		finished.emit(name)
+		return true
+	return false
 
 
 func enter(previous_state_path: String, data := {}) -> void:
@@ -31,9 +33,9 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 func physics_update(_delta: float) -> void:
 	## State change.
-	if FALL and (not character.is_on_floor() and character.velocity.y > 10):
-		finished.emit(FALL.name)
-	elif RUN and not input.left_joystick.horizontal_aprox_zero():
-		finished.emit(RUN.name)
-	elif IDLE:
-		finished.emit(IDLE.name)
+	if FALL and FALL.try_enter():
+		return
+	if RUN and RUN.try_enter():
+		return
+	if IDLE and IDLE.try_enter():
+		return

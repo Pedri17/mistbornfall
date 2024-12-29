@@ -20,8 +20,8 @@ func physics_update(_delta: float) -> void:
 	pass
 
 ## Use this function to go to this state if conditions are reached.
-func try_enter() -> void:
-	pass
+#func try_enter() -> void:
+#	pass
 
 ## Called by the state machine upon changing the active state. The `data` parameter
 ## is a dictionary with arbitrary data the state can use to initialize itself.
