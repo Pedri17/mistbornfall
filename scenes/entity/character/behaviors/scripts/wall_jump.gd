@@ -17,6 +17,11 @@ extends State
 @export var FALL: FallCharacterBehavior
 
 
+func try_enter() -> void:
+	if input.buttons[INPUT].pressed and wall_raycast.is_colliding():
+		finished.emit(name)
+
+
 func enter(previous_state_path: String, data := {}) -> void:
 	animation_player.play(ANIMATION_JUMP)
 	

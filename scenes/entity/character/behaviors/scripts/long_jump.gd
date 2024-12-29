@@ -17,6 +17,11 @@ extends State
 @export var DUCK: DuckCharacterBehavior
 
 
+func try_enter() -> void:
+	if input.buttons[INPUT].pressed:
+		finished.emit(name)
+
+
 func enter(previous_state_path: String, data := {}) -> void:
 	animation_player.play(DUCK_ANIMATION)
 	

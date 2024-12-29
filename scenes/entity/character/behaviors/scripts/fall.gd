@@ -2,6 +2,7 @@
 class_name FallCharacterBehavior
 extends State
 
+@export var LAND_ANIMATION: StringName = "Land"
 @export var character: CharacterBody2D = owner as CharacterBody2D
 @export var animation_player: AnimationPlayer
 @export var second_animation_player: AnimationPlayer
@@ -15,7 +16,10 @@ extends State
 @export var LEDGE_CLING: LedgeClingCharacterBehavior
 @export var WALL_SLIDE: WallSlideCharacterBehavior
 
-var LAND_ANIMATION: StringName = "Land"
+
+func try_enter() -> void:
+	if not character.is_on_floor() and character.velocity.y > 10:
+		finished.emit(name)
 
 
 func enter(previous_state_path: String, data := {}) -> void:

@@ -22,6 +22,11 @@ func _ready() -> void:
 	direction_controller.direction_changed.connect(_on_direction_changed)
 
 
+func try_enter() -> void:
+	if input.buttons[INPUT].pressing:
+		finished.emit(name)
+
+
 func enter(previous_state_path: String, data := {}) -> void:
 	animation_player.play(name)
 	second_animation_player.play(name)

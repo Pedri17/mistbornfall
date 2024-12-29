@@ -15,6 +15,10 @@ extends State
 @export var LEDGE_CLING: LedgeClingCharacterBehavior
 
 
+func try_enter() -> void:
+	if character.is_on_wall() and wall_raycast.is_colliding():
+		finished.emit(name)
+
 func enter(previous_state_path: String, data := {}) -> void:
 	animation_player.play(name)
 

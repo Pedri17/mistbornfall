@@ -29,6 +29,11 @@ func _ready() -> void:
 	gravity.floor_changed.connect(_on_floor_changed)
 
 
+func try_enter() -> void:
+	if input.buttons[INPUT].pressed:
+		finished.emit(name)
+
+
 func enter(previous_state_path: String, data := {}) -> void:
 	animation_player.play(name)
 	

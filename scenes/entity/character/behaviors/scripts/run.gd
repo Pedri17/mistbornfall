@@ -14,6 +14,10 @@ extends State
 @export var ROLL_JUMP: RollJumpCharacterBehavior
 
 
+func try_enter() -> void:
+	if character.is_on_floor() and not input.left_joystick.horizontal_aprox_zero():
+		finished.emit(name)
+
 func enter(previous_state_path: String, data := {}) -> void:
 	animation_player.play(name)
 
@@ -30,7 +34,7 @@ func physics_update(_delta: float) -> void:
 		and ROLL_JUMP.can_do_roll_jump 
 		and input.buttons[ROLL_JUMP.INPUT].pressed
 	):
-		finished.emit("RollJump")
+		finished.emit(ROLL_JUMP.name)
 	elif JUMP and input.buttons[JUMP.INPUT].pressed:
 		finished.emit(JUMP.name)
 	elif IDLE and input.left_joystick.horizontal_aprox_zero():

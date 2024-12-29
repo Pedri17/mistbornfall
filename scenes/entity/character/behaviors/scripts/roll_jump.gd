@@ -24,6 +24,11 @@ func _ready() -> void:
 	direction_controller.direction_changed.connect(on_changed_direction)
 
 
+func try_enter() -> void:
+	if input.buttons[INPUT].pressed and can_do_roll_jump:
+		finished.emit(name)
+
+
 func enter(previous_state_path: String, data := {}) -> void:
 	animation_player.play(name)
 	
