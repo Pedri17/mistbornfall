@@ -46,14 +46,43 @@ func _ready() -> void:
 			buttons[this_action] = _VirtualButton.new()
 
 
+func _physics_process(delta):
+	# Disable one tap buttons
+	for button_name: StringName in buttons.keys():
+		if buttons[button_name].released:
+			buttons[button_name].released = false
+		if buttons[button_name].pressed:
+			buttons[button_name].pressed = false
+	
+	# Set joystick last directions.
+	if abs(left_joystick.value.x) + abs(left_joystick.value.y) > 0.3:
+		left_joystick.last_direction = left_joystick.value
+	if abs(right_joystick.value.x) + abs(right_joystick.value.y) > 0.3:
+		right_joystick.last_direction = right_joystick.value
+
+
 ## Information about how a button is pressed.
 class _VirtualButton:
 	var pressed: bool = false
 	var pressing: bool = false
 	var released: bool = false
+	
+	func set_pressed():
+		pressed = true
+		released = true
+	
+	func start_pressing():
+		pressed = true
+		pressing = true
+	
+	func stop_pressing():
+		released = true
+		pressing = false
+
 
 class _VirtualJoystick:
 	var value := Vector2.ZERO
+	var last_direction := Vector2.ZERO ## Last direction pointing that is not zero.
 	var _horizontal_sign: int = 0:
 		get():
 			return _to_sign(value.x)

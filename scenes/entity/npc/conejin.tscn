@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6pnpivm2owb3"]
+
+[ext_resource type="Script" path="res://scenes/entity/npc/conejin.gd" id="1_t4bjk"]
+[ext_resource type="Texture2D" uid="uid://ccb3qq66tc2e3" path="res://assets/sprites/conejin.png" id="1_x02vm"]
+[ext_resource type="PackedScene" uid="uid://j03dbfuacd3i" path="res://scenes/utilities/direction_controller/direction_controller.tscn" id="2_1x5g0"]
+[ext_resource type="PackedScene" uid="uid://baq8puk8qjl4m" path="res://scenes/utilities/gravity_component/gravity_component.tscn" id="2_se6ai"]
+[ext_resource type="Script" path="res://scenes/utilities/direction_controller/flippable/flippable_sprite.gd" id="5_gtb0s"]
+[ext_resource type="Script" path="res://scenes/utilities/input_component/input_component.gd" id="6_uchlc"]
+[ext_resource type="Script" path="res://scenes/utilities/direction_controller/flippable/flippable_raycast.gd" id="7_1xasu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q2q5h"]
+size = Vector2(18, 20)
+
+[node name="Conejin" type="CharacterBody2D"]
+script = ExtResource("1_t4bjk")
+
+[node name="DirectionController" parent="." node_paths=PackedStringArray("input") instance=ExtResource("2_1x5g0")]
+input = NodePath("../InputComponent")
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("character") instance=ExtResource("2_se6ai")]
+character = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="." node_paths=PackedStringArray("direction_controller")]
+texture = ExtResource("1_x02vm")
+script = ExtResource("5_gtb0s")
+direction_controller = NodePath("../DirectionController")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_q2q5h")
+
+[node name="InputComponent" type="Node" parent="."]
+script = ExtResource("6_uchlc")
+
+[node name="RayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("direction_controller")]
+target_position = Vector2(15, 0)
+script = ExtResource("7_1xasu")
+direction_controller = NodePath("../DirectionController")

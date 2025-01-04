@@ -91,6 +91,7 @@ func remove_actual() -> Item:
 		inventory_updated.emit()
 		return to_remove_item
 	else:
+		printerr(owner.name + "." + name + ": all slots are empty.")
 		return null
 
 

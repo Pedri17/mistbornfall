@@ -3,16 +3,7 @@ class_name DeviceController
 extends InputComponent
 ## Component that allows the player to control any entity. It needs to be at the final of the sibling nodes.
 
-## Specific device that is controlling this component. -2 is the keyboard.
-@export var device: int = -2
-
-func _physics_process(_delta: float) -> void:
-	# Disable one tap buttons
-	for button_name: StringName in buttons.keys():
-		if buttons[button_name].released:
-			buttons[button_name].released = false
-		if buttons[button_name].pressed:
-			buttons[button_name].pressed = false
+@export var device: int = -2 ## Specific device that is controlling this component. -2 is the keyboard.
 
 
 func _input(event: InputEvent) -> void:
@@ -38,7 +29,6 @@ func _input(event: InputEvent) -> void:
 		right_joystick.value.x = _update_direction(event, right_joystick.value.x, second_action_left, second_action_up)
 		right_joystick.value.y = _update_direction(event, right_joystick.value.y, second_action_up, second_action_down)
 
-
 ## Update a axis.
 func _update_direction(event: InputEvent, actual_value: float, negative_action: StringName, positive_action: StringName) -> float:
 	var value: float = actual_value
@@ -62,4 +52,5 @@ func _update_direction(event: InputEvent, actual_value: float, negative_action: 
 			value = 0
 			buttons[positive_action].released = true
 			buttons[positive_action].pressing = false
+		
 	return value

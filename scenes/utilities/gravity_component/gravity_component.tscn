@@ -4,3 +4,9 @@
 
 [node name="GravityComponent" type="Node"]
 script = ExtResource("1_m2djb")
+
+[node name="NoGravityTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[connection signal="timeout" from="NoGravityTimer" to="." method="_on_no_gravity_timer_timeout"]

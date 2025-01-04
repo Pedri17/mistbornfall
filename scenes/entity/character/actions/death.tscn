@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://tf61rmi3qmb7"]
+
+[ext_resource type="Script" path="res://scenes/entity/character/actions/scripts/death.gd" id="1_5tkya"]
+
+[node name="Death" type="Node"]
+script = ExtResource("1_5tkya")

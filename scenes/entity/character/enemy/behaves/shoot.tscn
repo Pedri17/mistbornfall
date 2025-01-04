@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3quqt1srla75"]
+
+[ext_resource type="Script" path="res://scenes/entity/character/enemy/behaves/scripts/shoot.gd" id="1_ik3r3"]
+
+[node name="Shoot" type="Node"]
+script = ExtResource("1_ik3r3")

@@ -45,7 +45,7 @@ func make_display() -> void:
 		# Create sprites.
 		if this_item.spaces == 1:
 			while this_quantity > 3:
-				_create_sprite(this_item.y_frame, 3, 1)
+				_create_sprite(this_item.texture_y_frame_coord, 3, 1)
 			if this_quantity > 0:
 				_create_sprite(this_item.texture_y_frame_coord, this_quantity, 1)
 		else:

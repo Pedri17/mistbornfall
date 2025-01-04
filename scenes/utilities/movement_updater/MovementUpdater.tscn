@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://301qt663u07l"]
+
+[ext_resource type="Script" path="res://scenes/utilities/movement_updater/movement_updater.gd" id="1_0b7kx"]
+
+[node name="MovementUpdater" type="Node"]
+process_physics_priority = -1
+script = ExtResource("1_0b7kx")

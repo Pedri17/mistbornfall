@@ -3,6 +3,7 @@ class_name CatchableComponent
 extends Node
 ## Adds to a node the capacity to be caught.
 
+@export var character: CharacterBody2D = get_parent() as CharacterBody2D
 @export var time_uncatchable: float = 0 ## Time after spawning in which it cannot be caught.
 @export var item: Item
 @export var catchArea: Area2D
@@ -11,6 +12,7 @@ extends Node
 @export var projectile_component: ProjectileComponent ## Optional
 
 @onready var timer_to_catch: Timer = $TimerToCatch
+
 
 func _ready() -> void:
 	catchArea.body_entered.connect(_on_body_entered)
@@ -21,15 +23,16 @@ func _ready() -> void:
 func _try_take_item(entity: Node, inventory: InventoryComponent) -> bool:
 	# Catchable on nail.
 	if not uncatchable_on_nail or (nailable_component and not nailable_component.nailed):
-		# Projectile only can be taken by the shooter
-		if not projectile_component or (projectile_component 
-				and (projectile_component.shooted_by == null or projectile_component.shooted_by == entity
-		)):
+		# Projectiles cant be taken while are moving fast.
+		if not projectile_component or (
+			projectile_component and character.velocity.abs() <= Vector2(10,10)
+		):
 			# Take item if there's space.
 			if inventory.try_add(item.duplicate()):
 				get_parent().queue_free()
 				return true
 	return false
+
 
 func _on_body_entered(body: Node2D) -> void:
 	if timer_to_catch.time_left == 0:

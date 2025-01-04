@@ -40,6 +40,6 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 	state.enter(previous_state_path, data)
 
 
-func connect_finished_signal(function: Callable):
+func connect_finished_signal(function: Callable) -> void:
 	for state_node: State in find_children("*", "State"):
 		state_node.finished.connect(function)
