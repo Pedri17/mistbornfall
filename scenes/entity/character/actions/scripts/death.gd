@@ -4,6 +4,8 @@ extends State
 
 @export var character: CharacterBody2D
 @export var health_component: HealthComponent
+@export var animation_player: AnimationPlayer
+@export var inventory_component: InventoryComponent
 
 
 func _ready() -> void:
@@ -12,7 +14,7 @@ func _ready() -> void:
 
 
 func try_enter() -> bool:
-	if health_component and health_component.health <= 0:
+	if health_component.health <= 0:
 		finished.emit(name)
 		return true
 	return false
@@ -23,4 +25,7 @@ func physics_update(_delta: float) -> void:
 
 
 func enter(previous_state_path: String, data := {}) -> void:
-	character.visible = false
+	animation_player.play(name)
+	
+	if inventory_component:
+		inventory_component.throw_all_items()

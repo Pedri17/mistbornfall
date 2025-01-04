@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://d4co65rsfvse5"]
+[gd_scene load_steps=57 format=3 uid="uid://d4co65rsfvse5"]
 
 [ext_resource type="Texture2D" uid="uid://mfmhg6l5iaef" path="res://assets/sprites/player.png" id="1_lguaw"]
 [ext_resource type="PackedScene" uid="uid://301qt663u07l" path="res://scenes/utilities/movement_updater/MovementUpdater.tscn" id="2_giwar"]
@@ -23,6 +23,14 @@
 [ext_resource type="PackedScene" uid="uid://1nheuxhgyapk" path="res://scenes/entity/character/actions/shoot.tscn" id="12_tn48p"]
 [ext_resource type="Resource" uid="uid://bd5826crnfia" path="res://scenes/entity/projectiles/coin.tres" id="14_ofsuj"]
 [ext_resource type="PackedScene" uid="uid://tf61rmi3qmb7" path="res://scenes/entity/character/actions/death.tscn" id="22_2ocmk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s83vp"]
+atlas = ExtResource("1_lguaw")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vpir"]
+atlas = ExtResource("1_lguaw")
+region = Rect2(96, 32, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_auocf"]
 atlas = ExtResource("1_lguaw")
@@ -142,6 +150,17 @@ region = Rect2(48, 96, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4bc0o"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s83vp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vpir")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_auocf")
@@ -298,10 +317,11 @@ character = NodePath("..")
 [node name="HealthComponent" parent="." instance=ExtResource("5_67eg8")]
 
 [node name="InventoryComponent" parent="." node_paths=PackedStringArray("input_component") instance=ExtResource("5_hrctv")]
+position = Vector2(1, 16)
 input_component = NodePath("../InputComponent")
 
 [node name="InventoryDisplayerAddon" parent="InventoryComponent" node_paths=PackedStringArray("inventory") instance=ExtResource("6_jjwif")]
-position = Vector2(2, -4)
+position = Vector2(0, -19)
 inventory = NodePath("..")
 base_item_sprite_dir = ExtResource("7_02pxd")
 
@@ -400,9 +420,11 @@ horizontal_movement = NodePath("../../HorizontalMovement")
 IDLE = NodePath("../Idle")
 FALL = NodePath("../Fall")
 
-[node name="Death" parent="ActionTree" node_paths=PackedStringArray("character", "health_component") instance=ExtResource("22_2ocmk")]
+[node name="Death" parent="ActionTree" node_paths=PackedStringArray("character", "health_component", "animation_player", "inventory_component") instance=ExtResource("22_2ocmk")]
 character = NodePath("../..")
 health_component = NodePath("../../HealthComponent")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+inventory_component = NodePath("../../InventoryComponent")
 
 [node name="InputComponent" type="Node" parent="."]
 script = ExtResource("6_0aj3m")

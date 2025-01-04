@@ -3,6 +3,7 @@ class_name DirectionController
 extends Node
 ## Used for a controlled entity to determine the direction where is facing.
 @export var input: InputComponent
+@export var health_component: HealthComponent
 @export var sprites: Array[Sprite2D]
 @export var animated_sprites: Array[AnimatedSprite2D]
 @export var raycasts: Array[RayCast2D]
@@ -17,7 +18,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if (
+	if (not health_component or not health_component.is_dead()) and (
 		input.left_joystick.get_horizontal_sign() != 0 
 		and direction != input.left_joystick.get_horizontal_sign()
 	):

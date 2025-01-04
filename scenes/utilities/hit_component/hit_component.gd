@@ -1,14 +1,15 @@
+@icon("res://icons/icon_skull.png")
 class_name HitComponent
 extends Node
 
 @export var character: CharacterBody2D
 @export var area: Area2D
 @export var projectile_component: ProjectileComponent
-@export var min_velocity_to_hit: int = 50
+@export var min_velocity_to_hit: int = 100
 
 @onready var shoot_grace_timer = $ShootGraceTimer
 
-var grace_time: bool = true
+var grace_time: bool = true # Time while the shooter cant hit himself.
 
 
 func _ready():

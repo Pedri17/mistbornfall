@@ -103,3 +103,18 @@ func roll_slot() -> void:
 		actual_slot = 0
 	# Update displayer.
 	inventory_updated.emit()
+
+
+## Selected item is throwed away randomly.
+func throw_item() -> Node2D:
+	var item_entity: Node2D = load(remove_actual().entity_scene_path).instantiate()
+	get_node("/root").get_child(0).call_deferred("add_child", item_entity)
+	if item_entity is CharacterBody2D:
+		item_entity.global_position = global_position
+		item_entity.velocity = Vector2(randi_range(-100, 100), randi_range(-50, -150))
+	return item_entity
+
+
+func throw_all_items():
+	while not is_empty():
+		throw_item()

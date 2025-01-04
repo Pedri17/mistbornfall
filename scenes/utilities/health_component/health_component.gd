@@ -1,3 +1,4 @@
+@icon("res://icons/icon_heart.png")
 class_name HealthComponent
 extends Node
 
@@ -10,3 +11,7 @@ extends Node
 
 signal health_lost(previous_health: int, actual_health: int)
 signal dead
+
+
+func is_dead() -> bool:
+	return health <= 0

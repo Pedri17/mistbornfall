@@ -53,7 +53,8 @@ func _process(delta) -> void:
 					direction = _Direction.UP
 				else:
 					if sar.sprite is Sprite2D:
-						print(sar.sprite.owner.name+": pos: " + str(sar.sprite.global_position.x + sar.sprite.offset.x - spr_size.x/2))
+						pass
+						#print(sar.sprite.owner.name+": pos: " + str(sar.sprite.global_position.x + sar.sprite.offset.x - spr_size.x/2))
 				
 				# Out of margin.
 				if direction != _Direction.NULL:

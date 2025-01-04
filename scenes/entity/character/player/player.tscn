@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://5r034rahne4w"]
+[gd_scene load_steps=59 format=3 uid="uid://5r034rahne4w"]
 
 [ext_resource type="PackedScene" uid="uid://301qt663u07l" path="res://scenes/utilities/movement_updater/MovementUpdater.tscn" id="1_i6t4g"]
 [ext_resource type="PackedScene" uid="uid://ddnfnolm5t03v" path="res://scenes/utilities/horizontal_movement/horizontal_movement.tscn" id="2_2d486"]
@@ -25,6 +25,14 @@
 [ext_resource type="PackedScene" uid="uid://c050fusgdq6mt" path="res://scenes/entity/character/actions/ledge_cling.tscn" id="15_l64nh"]
 [ext_resource type="PackedScene" uid="uid://1nheuxhgyapk" path="res://scenes/entity/character/actions/shoot.tscn" id="19_bwj2t"]
 [ext_resource type="PackedScene" uid="uid://tf61rmi3qmb7" path="res://scenes/entity/character/actions/death.tscn" id="24_7r6m6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv6xw"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wntvl"]
+atlas = ExtResource("2_r7gy3")
+region = Rect2(96, 32, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_auocf"]
 atlas = ExtResource("2_r7gy3")
@@ -144,6 +152,17 @@ region = Rect2(48, 96, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dlk15"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv6xw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wntvl")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_auocf")
@@ -284,8 +303,9 @@ input = NodePath("../DeviceController")
 character = NodePath("..")
 movement_updater = NodePath("../MovementUpdater")
 
-[node name="DirectionController" parent="." node_paths=PackedStringArray("input", "animated_sprites", "raycasts") instance=ExtResource("2_8nybr")]
+[node name="DirectionController" parent="." node_paths=PackedStringArray("input", "health_component", "animated_sprites", "raycasts") instance=ExtResource("2_8nybr")]
 input = NodePath("../DeviceController")
+health_component = NodePath("../HealthComponent")
 animated_sprites = [NodePath("../Sprite")]
 raycasts = [NodePath("../FaceRaycast"), NodePath("../WallRaycast")]
 
@@ -320,10 +340,11 @@ position = Vector2(0, 8)
 target_position = Vector2(8, 0)
 
 [node name="InventoryComponent" parent="." node_paths=PackedStringArray("input_component") instance=ExtResource("5_cyajp")]
+position = Vector2(1, 15)
 input_component = NodePath("../DeviceController")
 
 [node name="InventoryDisplayerAddon" parent="InventoryComponent" node_paths=PackedStringArray("inventory") instance=ExtResource("6_mly37")]
-position = Vector2(1, -5)
+position = Vector2(1, -19)
 inventory = NodePath("..")
 base_item_sprite_dir = ExtResource("7_oyr2q")
 
@@ -467,9 +488,11 @@ horizontal_movement = NodePath("../../HorizontalMovement")
 IDLE = NodePath("../Idle")
 FALL = NodePath("../Fall")
 
-[node name="Death" parent="StateMachine" node_paths=PackedStringArray("character", "health_component") instance=ExtResource("24_7r6m6")]
+[node name="Death" parent="StateMachine" node_paths=PackedStringArray("character", "health_component", "animation_player", "inventory_component") instance=ExtResource("24_7r6m6")]
 character = NodePath("../..")
 health_component = NodePath("../../HealthComponent")
+animation_player = NodePath("../../SpriteAnimationPlayer")
+inventory_component = NodePath("../../InventoryComponent")
 
 [node name="DeviceController" type="Node" parent="."]
 script = ExtResource("13_6oihj")
