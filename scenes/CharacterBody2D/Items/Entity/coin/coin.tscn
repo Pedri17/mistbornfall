@@ -70,7 +70,6 @@ entity = NodePath("..")
 
 [node name="CatchableComponent" parent="." node_paths=PackedStringArray("character", "catchArea", "projectile_component") instance=ExtResource("6_klhhw")]
 character = NodePath("..")
-time_uncatchable = 0.1
 item = ExtResource("3_c0hpa")
 catchArea = NodePath("../Hitbox")
 projectile_component = NodePath("../ProjectileComponent")

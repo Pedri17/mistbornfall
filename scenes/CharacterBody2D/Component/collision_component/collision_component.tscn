@@ -4,3 +4,9 @@
 
 [node name="CollisionComponent" type="Node"]
 script = ExtResource("1_c4x5c")
+
+[node name="NoProjectileCollisionsTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="NoProjectileCollisionsTimer" to="." method="_on_no_projectile_collisions_timer_timeout"]

@@ -5,7 +5,7 @@ extends Node
 @export var character: CharacterBody2D
 @export var area: Area2D
 @export var projectile_component: ProjectileComponent
-@export var min_velocity_to_hit: int = 100
+@export var min_velocity_to_hit: int = 200
 
 @onready var shoot_grace_timer = $ShootGraceTimer
 
@@ -19,9 +19,7 @@ func _ready():
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if abs(character.velocity.x) >= min_velocity_to_hit or (
-		abs(character.velocity.y) >= min_velocity_to_hit
-	):
+	if character.velocity.length() > min_velocity_to_hit:
 		var health: HealthComponent
 		for child: Node in body.get_children():
 			if child is HealthComponent:

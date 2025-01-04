@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctks2qh80bi0x"]
+
+[ext_resource type="Script" path="res://scenes/CharacterBody2D/Items/Component/nailable_component/nailable_component.gd" id="1_b20ld"]
+
+[node name="NailableComponent" type="Node"]
+script = ExtResource("1_b20ld")

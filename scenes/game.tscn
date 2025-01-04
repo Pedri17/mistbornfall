@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bpg6mtmq828ed"]
+[gd_scene load_steps=14 format=4 uid="uid://bpg6mtmq828ed"]
 
 [ext_resource type="PackedScene" uid="uid://5r034rahne4w" path="res://scenes/CharacterBody2D/Entity/character/player/player.tscn" id="1_rbyqn"]
 [ext_resource type="Script" path="res://scenes/camera.gd" id="2_062xq"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dx0wpqy06awar" path="res://scenes/CharacterBody2D/Items/Entity/coin/coin.tscn" id="3_w20ev"]
 [ext_resource type="PackedScene" uid="uid://d4co65rsfvse5" path="res://scenes/CharacterBody2D/Entity/character/enemy/allomancer.tscn" id="4_dwv2v"]
 [ext_resource type="Texture2D" uid="uid://cyc04aapojlg2" path="res://assets/sprites/Backgrounds.png" id="4_udjs0"]
+[ext_resource type="PackedScene" uid="uid://bacdhcim52hci" path="res://scenes/CharacterBody2D/Items/Entity/nail/nail.tscn" id="9_5ntcv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uqtjc"]
 resource_name = "enviroment"
@@ -991,6 +992,9 @@ texture = SubResource("AtlasTexture_wnfvv")
 [node name="Coin" parent="." instance=ExtResource("3_w20ev")]
 position = Vector2(66, 13)
 
+[node name="Nail2" parent="." instance=ExtResource("9_5ntcv")]
+position = Vector2(-138, -54)
+
 [node name="Coin2" parent="." instance=ExtResource("3_w20ev")]
 position = Vector2(-67, 5)
 
@@ -1017,3 +1021,6 @@ offset_bottom = -150.0
 text = "Estado"
 label_settings = SubResource("LabelSettings_dr0tc")
 script = ExtResource("3_f2j11")
+
+[node name="Nail" parent="." instance=ExtResource("9_5ntcv")]
+position = Vector2(-20, -51)

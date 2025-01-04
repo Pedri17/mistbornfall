@@ -4,7 +4,7 @@ extends Node
 ## Adds to a node the capacity to be caught.
 
 @export var character: CharacterBody2D = get_parent() as CharacterBody2D
-@export var time_uncatchable: float = 0 ## Time after spawning in which it cannot be caught.
+@export var time_uncatchable: float = 0.1 ## Time after spawning in which it cannot be caught.
 @export var item: Item
 @export var catchArea: Area2D
 @export var uncatchable_on_nail: bool = false ## Optional

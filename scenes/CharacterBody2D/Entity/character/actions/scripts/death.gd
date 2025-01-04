@@ -41,4 +41,9 @@ func enter(previous_state_path: String, data := {}) -> void:
 		animation_player.play(ANIMATION_DEATH_FALL)
 	
 	if inventory_component:
+		inventory_component.visible = false
 		inventory_component.throw_all_items()
+
+
+func exit() -> void:
+	inventory_component.visible = true

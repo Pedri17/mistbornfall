@@ -11,6 +11,8 @@ extends Node2D
 @export var roll_slot_action: StringName = "roll_slot" ## Optional, InputMap name required if has the InputComponent
 @export var health_component: HealthComponent
 
+@onready var timer = $Timer
+
 signal inventory_updated
 
 var actual_slot: int = 0
@@ -115,10 +117,16 @@ func throw_item() -> Node2D:
 	get_node("/root").get_child(0).call_deferred("add_child", item_entity)
 	if item_entity is CharacterBody2D:
 		item_entity.global_position = global_position
-		item_entity.velocity = Vector2(randi_range(-100, 100), randi_range(-50, -150))
+		item_entity.velocity = Vector2(randi_range(-120, 120), randi_range(-20, -150))
 	return item_entity
 
 
 func throw_all_items():
-	while not is_empty():
+	timer.start()
+
+
+func _on_timer_timeout():
+	if not is_empty():
 		throw_item()
+	else:
+		timer.stop()

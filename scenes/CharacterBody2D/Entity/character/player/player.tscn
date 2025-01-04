@@ -377,12 +377,12 @@ position = Vector2(0, 8)
 target_position = Vector2(8, 0)
 
 [node name="InventoryComponent" parent="." node_paths=PackedStringArray("input_component", "health_component") instance=ExtResource("5_cyajp")]
-position = Vector2(1, 15)
+position = Vector2(1, 13)
 input_component = NodePath("../DeviceController")
 health_component = NodePath("../HealthComponent")
 
 [node name="InventoryDisplayerAddon" parent="InventoryComponent" node_paths=PackedStringArray("inventory") instance=ExtResource("6_mly37")]
-position = Vector2(1, -19)
+position = Vector2(1, -17)
 inventory = NodePath("..")
 base_item_sprite_dir = ExtResource("7_oyr2q")
 

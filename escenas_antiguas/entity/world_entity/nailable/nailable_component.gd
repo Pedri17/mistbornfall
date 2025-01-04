@@ -1,4 +1,4 @@
-class_name NailableComponent
+class_name NailableComponent2
 extends Area2D
 
 @export var entity: CharacterBody2D

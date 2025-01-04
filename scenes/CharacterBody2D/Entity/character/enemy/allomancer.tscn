@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://d4co65rsfvse5"]
+[gd_scene load_steps=59 format=3 uid="uid://d4co65rsfvse5"]
 
 [ext_resource type="Texture2D" uid="uid://mfmhg6l5iaef" path="res://assets/sprites/player.png" id="1_lguaw"]
 [ext_resource type="PackedScene" uid="uid://301qt663u07l" path="res://scenes/CharacterBody2D/Component/movement_updater/MovementUpdater.tscn" id="2_giwar"]
@@ -17,9 +17,11 @@
 [ext_resource type="PackedScene" uid="uid://dvm6q5vpen18i" path="res://scenes/Component/inventory_component/inventory_initial_items_addon.tscn" id="8_xtvvr"]
 [ext_resource type="PackedScene" uid="uid://dp6s2j4yi5f7y" path="res://scenes/CharacterBody2D/Entity/character/actions/run.tscn" id="9_0qyl4"]
 [ext_resource type="PackedScene" uid="uid://e8bkcy3qmkce" path="res://scenes/CharacterBody2D/Entity/character/enemy/behaves/move_and_shoot.tscn" id="9_gdfmc"]
+[ext_resource type="Script" path="res://scenes/Component/inventory_component/auxiliar/item.gd" id="10_7rtno"]
 [ext_resource type="PackedScene" uid="uid://c3quqt1srla75" path="res://scenes/CharacterBody2D/Entity/character/enemy/behaves/shoot.tscn" id="10_i8kny"]
 [ext_resource type="PackedScene" uid="uid://3yedhdbrwust" path="res://scenes/CharacterBody2D/Entity/character/actions/fall.tscn" id="10_su6is"]
 [ext_resource type="PackedScene" uid="uid://c25d05s85acr7" path="res://scenes/CharacterBody2D/Entity/character/actions/Jump.tscn" id="11_q3ub6"]
+[ext_resource type="Resource" uid="uid://dmaet2r4lktb6" path="res://scenes/CharacterBody2D/Items/Entity/nail/nail.tres" id="12_gc5em"]
 [ext_resource type="PackedScene" uid="uid://1nheuxhgyapk" path="res://scenes/CharacterBody2D/Entity/character/actions/shoot.tscn" id="12_tn48p"]
 [ext_resource type="Resource" uid="uid://bd5826crnfia" path="res://scenes/CharacterBody2D/Items/Entity/coin/coin.tres" id="14_ofsuj"]
 [ext_resource type="PackedScene" uid="uid://tf61rmi3qmb7" path="res://scenes/CharacterBody2D/Entity/character/actions/death.tscn" id="22_2ocmk"]
@@ -327,6 +329,7 @@ base_item_sprite_dir = ExtResource("7_02pxd")
 
 [node name="InventoryInitialItemsAddon" parent="InventoryComponent" node_paths=PackedStringArray("inventory") instance=ExtResource("8_xtvvr")]
 inventory = NodePath("..")
+items = Array[ExtResource("10_7rtno")]([ExtResource("14_ofsuj"), ExtResource("14_ofsuj"), ExtResource("12_gc5em")])
 
 [node name="DirectionController" parent="." node_paths=PackedStringArray("input", "animated_sprites", "raycasts") instance=ExtResource("3_2osmx")]
 input = NodePath("../InputComponent")
