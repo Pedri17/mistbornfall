@@ -4,10 +4,10 @@ extends Label
 @onready var allomancer = $"../Allomancer"
 
 func _ready() -> void:
-	for child in allomancer.get_children():
+	for child in character.get_children():
 		if child is StateMachine:
 			child.connect_finished_signal(change_state)
 			
 
 func change_state(name: String):
-	text = name
+	text = name + "\nVelocity: " + str(character.velocity)

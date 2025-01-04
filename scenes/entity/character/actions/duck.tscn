@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bb3y7st4af5pm"]
-
-[ext_resource type="Script" path="res://scenes/entity/character/actions/scripts/duck.gd" id="1_a6j38"]
-
-[node name="Duck" type="Node"]
-script = ExtResource("1_a6j38")
-INPUT = null
-duck_jump_velocity = null

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://e8bkcy3qmkce"]
+
+[ext_resource type="Script" path="res://scenes/CharacterBody2D/Entity/character/enemy/behaves/scripts/move_and_shoot.gd" id="1_tj1e0"]
+
+[node name="MoveAndShoot" type="Node"]
+script = ExtResource("1_tj1e0")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

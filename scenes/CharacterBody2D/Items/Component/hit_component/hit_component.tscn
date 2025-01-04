@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://creripdgb0yl0"]
+
+[ext_resource type="Script" path="res://scenes/CharacterBody2D/Items/Component/hit_component/hit_component.gd" id="1_o6t42"]
+
+[node name="HitComponent" type="Node"]
+script = ExtResource("1_o6t42")
+
+[node name="ShootGraceTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="ShootGraceTimer" to="." method="_on_shoot_grace_timer_timeout"]
