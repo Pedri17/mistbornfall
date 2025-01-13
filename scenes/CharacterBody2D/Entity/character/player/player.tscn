@@ -1,7 +1,8 @@
-[gd_scene load_steps=64 format=3 uid="uid://5r034rahne4w"]
+[gd_scene load_steps=68 format=3 uid="uid://5r034rahne4w"]
 
 [ext_resource type="Script" path="res://scenes/CharacterBody2D/Entity/character/player/debug.gd" id="1_5w42t"]
 [ext_resource type="PackedScene" uid="uid://301qt663u07l" path="res://scenes/CharacterBody2D/Component/movement_updater/MovementUpdater.tscn" id="1_i6t4g"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_jsopy"]
 [ext_resource type="PackedScene" uid="uid://ddnfnolm5t03v" path="res://scenes/CharacterBody2D/Component/horizontal_movement/horizontal_movement.tscn" id="2_2d486"]
 [ext_resource type="PackedScene" uid="uid://j03dbfuacd3i" path="res://scenes/Component/direction_controller/direction_controller.tscn" id="2_8nybr"]
 [ext_resource type="Texture2D" uid="uid://mfmhg6l5iaef" path="res://assets/sprites/player.png" id="2_r7gy3"]
@@ -11,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bao313p8fe0jf" path="res://scenes/Component/inventory_component/inventory_component.tscn" id="5_cyajp"]
 [ext_resource type="PackedScene" uid="uid://dxmlgul0vcv5k" path="res://scenes/Component/state_machine/state_machine.tscn" id="5_netop"]
 [ext_resource type="PackedScene" uid="uid://bsu7punsjw2ve" path="res://scenes/Component/health_component/health_component.tscn" id="5_wq6k7"]
+[ext_resource type="PackedScene" uid="uid://cnan6of66pej5" path="res://scenes/Component/color_component/color_component.tscn" id="6_7huve"]
 [ext_resource type="PackedScene" uid="uid://bxrjha0uuwgrd" path="res://scenes/Component/inventory_component/inventory_displayer_addon.tscn" id="6_mly37"]
 [ext_resource type="PackedScene" uid="uid://b0youk0lu2br7" path="res://scenes/CharacterBody2D/Entity/character/actions/idle.tscn" id="7_3fxxl"]
 [ext_resource type="PackedScene" uid="uid://c25d05s85acr7" path="res://scenes/CharacterBody2D/Entity/character/actions/Jump.tscn" id="7_gvbo0"]
@@ -18,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dp6s2j4yi5f7y" path="res://scenes/CharacterBody2D/Entity/character/actions/run.tscn" id="9_70ct1"]
 [ext_resource type="PackedScene" uid="uid://bb3y7st4af5pm" path="res://scenes/CharacterBody2D/Entity/character/actions/duck.tscn" id="10_g0wdi"]
 [ext_resource type="PackedScene" uid="uid://3yedhdbrwust" path="res://scenes/CharacterBody2D/Entity/character/actions/fall.tscn" id="10_lv362"]
+[ext_resource type="PackedScene" uid="uid://u7ubrd70p2fp" path="res://scenes/Component/allomantic_power/allomantic_power.tscn" id="11_0ui5s"]
 [ext_resource type="PackedScene" uid="uid://dx1rik15konmy" path="res://scenes/CharacterBody2D/Entity/character/actions/long_jump.tscn" id="11_cpbpx"]
 [ext_resource type="PackedScene" uid="uid://dsfddtsoumrfw" path="res://scenes/CharacterBody2D/Entity/character/actions/wall_jump.tscn" id="12_t6bx0"]
 [ext_resource type="Script" path="res://scenes/Component/input_component/device_controller.gd" id="13_6oihj"]
@@ -26,6 +29,10 @@
 [ext_resource type="PackedScene" uid="uid://c050fusgdq6mt" path="res://scenes/CharacterBody2D/Entity/character/actions/ledge_cling.tscn" id="15_l64nh"]
 [ext_resource type="PackedScene" uid="uid://1nheuxhgyapk" path="res://scenes/CharacterBody2D/Entity/character/actions/shoot.tscn" id="19_bwj2t"]
 [ext_resource type="PackedScene" uid="uid://tf61rmi3qmb7" path="res://scenes/CharacterBody2D/Entity/character/actions/death.tscn" id="24_7r6m6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ao6pp"]
+shader = ExtResource("1_jsopy")
+shader_parameter/outline_color = null
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nv6xw"]
 atlas = ExtResource("2_r7gy3")
@@ -324,10 +331,43 @@ animations = [{
 size = Vector2(9, 17.5)
 
 [node name="Player" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_ao6pp")
+position = Vector2(-1, -7)
 collision_layer = 2
 
 [node name="Debug" type="Node" parent="."]
 script = ExtResource("1_5w42t")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_dlk15")
+animation = &"idle"
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(1, 7)
+shape = SubResource("RectangleShape2D_5e135")
+
+[node name="SpriteAnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_process = 0
+libraries = {
+"": ExtResource("3_2f52l")
+}
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("4_7p4qc")
+}
+
+[node name="FaceRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 2)
+target_position = Vector2(7.5, 0)
+
+[node name="WallRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(8, 0)
+
+[node name="ColorComponent" parent="." instance=ExtResource("6_7huve")]
 
 [node name="MovementUpdater" parent="." node_paths=PackedStringArray("character") instance=ExtResource("1_i6t4g")]
 character = NodePath("..")
@@ -348,33 +388,10 @@ raycasts = [NodePath("../FaceRaycast"), NodePath("../WallRaycast")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_wq6k7")]
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
-sprite_frames = SubResource("SpriteFrames_dlk15")
-animation = &"idle"
-
-[node name="SpriteAnimationPlayer" type="AnimationPlayer" parent="."]
-callback_mode_process = 0
-libraries = {
-"": ExtResource("3_2f52l")
-}
-
-[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": ExtResource("4_7p4qc")
-}
-
-[node name="CollisionBox" type="CollisionShape2D" parent="."]
+[node name="AllomanticPower" parent="." node_paths=PackedStringArray("entity", "input") instance=ExtResource("11_0ui5s")]
 position = Vector2(1, 7)
-shape = SubResource("RectangleShape2D_5e135")
-
-[node name="FaceRaycast" type="RayCast2D" parent="."]
-position = Vector2(0, 2)
-target_position = Vector2(7.5, 0)
-
-[node name="WallRaycast" type="RayCast2D" parent="."]
-position = Vector2(0, 8)
-target_position = Vector2(8, 0)
+entity = NodePath("..")
+input = NodePath("../DeviceController")
 
 [node name="InventoryComponent" parent="." node_paths=PackedStringArray("input_component", "health_component") instance=ExtResource("5_cyajp")]
 position = Vector2(1, 13)
@@ -531,7 +548,7 @@ horizontal_movement = NodePath("../../HorizontalMovement")
 
 [node name="DeviceController" type="Node" parent="."]
 script = ExtResource("13_6oihj")
-action_buttons = Array[StringName]([&"jump", &"roll_slot", &"shoot"])
+action_buttons = Array[StringName]([&"jump", &"roll_slot", &"shoot", &"push", &"pull"])
 action_left = &"left"
 action_right = &"right"
 action_up = &"up"

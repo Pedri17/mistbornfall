@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://u7ubrd70p2fp"]
+
+[ext_resource type="Script" path="res://scenes/Component/allomantic_power/allomantic_power.gd" id="1_t0ys4"]
+
+[node name="AllomanticPower" type="Node2D"]
+script = ExtResource("1_t0ys4")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 5
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(0, 0, 10, -30, 300, -50, 1000, -50, 1000, 50, 300, 50, 10, 30)
+disabled = true
+
+[node name="SelectBodiesTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="SelectBodiesTimer" to="." method="_on_select_bodies_timer_timeout"]

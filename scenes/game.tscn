@@ -999,7 +999,7 @@ position = Vector2(-138, -54)
 position = Vector2(-67, 5)
 
 [node name="Allomancer" parent="." instance=ExtResource("4_dwv2v")]
-position = Vector2(-10, 44)
+position = Vector2(82, 45)
 
 [node name="Test1" type="Label" parent="."]
 z_index = 30

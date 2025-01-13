@@ -7,17 +7,24 @@ extends Node
 @export var enable_physics_process: bool = false
 @export var no_projectile_collisions_on_spawn: bool = true
 @export var nailable_component: NailableComponent
+@export var min_velocity_to_collide_with_projectiles: int = 100
 
 @onready var no_projectile_collisions_timer = $NoProjectileCollisionsTimer
 
 
 func _ready() -> void:
+	pass
 	# Just collide world when spawns.
-	character.collision_mask = 1
-	no_projectile_collisions_timer.start()
+	#character.collision_mask = 1
+	#no_projectile_collisions_timer.start(0.2)
 
 
 func _physics_process(delta: float) -> void:
+	if character.velocity.length() >= min_velocity_to_collide_with_projectiles:
+		character.collision_mask = 5
+	else:
+		character.collision_mask = 1
+	
 	if enable_physics_process:
 		process_collisions(delta)
 

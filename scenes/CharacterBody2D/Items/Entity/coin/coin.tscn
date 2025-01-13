@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://dx0wpqy06awar"]
+[gd_scene load_steps=17 format=3 uid="uid://dx0wpqy06awar"]
 
 [ext_resource type="PackedScene" uid="uid://ddnfnolm5t03v" path="res://scenes/CharacterBody2D/Component/horizontal_movement/horizontal_movement.tscn" id="1_1ccnw"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_5utnu"]
 [ext_resource type="PackedScene" uid="uid://baq8puk8qjl4m" path="res://scenes/CharacterBody2D/Component/gravity_component/gravity_component.tscn" id="1_nm0iv"]
 [ext_resource type="Texture2D" uid="uid://che80vkthi5ew" path="res://assets/sprites/projectiles.png" id="1_v1sc4"]
 [ext_resource type="PackedScene" uid="uid://301qt663u07l" path="res://scenes/CharacterBody2D/Component/movement_updater/MovementUpdater.tscn" id="1_w2ltr"]
@@ -12,6 +13,15 @@
 [ext_resource type="PackedScene" uid="uid://ca4wuknxpr2j1" path="res://scenes/CharacterBody2D/Items/Component/catchable_component/catchable_component.tscn" id="6_klhhw"]
 [ext_resource type="PackedScene" uid="uid://creripdgb0yl0" path="res://scenes/CharacterBody2D/Items/Component/hit_component/hit_component.tscn" id="9_ejrkg"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_urmsx"]
+shader = ExtResource("1_5utnu")
+shader_parameter/outline_color = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rorux"]
+resource_local_to_scene = true
+shader = ExtResource("1_5utnu")
+shader_parameter/outline_color = null
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_72q2j"]
 radius = 2.0
 height = 6.0
@@ -20,10 +30,12 @@ height = 6.0
 size = Vector2(4, 6)
 
 [node name="Coin" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_urmsx")
 collision_layer = 4
 collision_mask = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rorux")
 texture = ExtResource("1_v1sc4")
 offset = Vector2(0.5, 0.5)
 hframes = 2
@@ -65,8 +77,10 @@ character = NodePath("..")
 area = NodePath("../Hitbox")
 projectile_component = NodePath("../ProjectileComponent")
 
-[node name="MetalBodyComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("4_d471h")]
+[node name="MetalBodyComponent" parent="." node_paths=PackedStringArray("entity", "entity_sprite", "gravity_component") instance=ExtResource("4_d471h")]
 entity = NodePath("..")
+entity_sprite = NodePath("../Sprite2D")
+gravity_component = NodePath("../GravityComponent")
 
 [node name="CatchableComponent" parent="." node_paths=PackedStringArray("character", "catchArea", "projectile_component") instance=ExtResource("6_klhhw")]
 character = NodePath("..")

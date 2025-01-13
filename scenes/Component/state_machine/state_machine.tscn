@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://scenes/Component/state_machine/state_machine.gd" id="1_sbw0h"]
 
 [node name="StateMachine" type="Node2D"]
+use_parent_material = true
 script = ExtResource("1_sbw0h")

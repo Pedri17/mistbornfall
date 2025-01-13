@@ -4,10 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://mfmhg6l5iaef" path="res://assets/sprites/player.png" id="2_17yec"]
 
 [node name="Shoot" type="Node2D"]
+use_parent_material = true
 script = ExtResource("1_yk5qs")
 
 [node name="SprArrow" type="Sprite2D" parent="."]
 z_index = 4
+use_parent_material = true
 position = Vector2(1, 7)
 texture = ExtResource("2_17yec")
 offset = Vector2(16, 0)

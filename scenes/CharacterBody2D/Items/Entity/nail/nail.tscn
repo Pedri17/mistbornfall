@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://bacdhcim52hci"]
+[gd_scene load_steps=16 format=3 uid="uid://bacdhcim52hci"]
 
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_638gx"]
 [ext_resource type="PackedScene" uid="uid://301qt663u07l" path="res://scenes/CharacterBody2D/Component/movement_updater/MovementUpdater.tscn" id="1_eqolx"]
 [ext_resource type="Texture2D" uid="uid://che80vkthi5ew" path="res://assets/sprites/projectiles.png" id="1_jpptb"]
 [ext_resource type="PackedScene" uid="uid://d0ky73mu3y2l8" path="res://scenes/CharacterBody2D/Component/collision_component/collision_component.tscn" id="2_7tjaw"]
@@ -13,6 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://b2l4sinein4yg" path="res://scenes/CharacterBody2D/Items/Component/rotation_component/rotation_component.tscn" id="9_13aam"]
 [ext_resource type="PackedScene" uid="uid://ctks2qh80bi0x" path="res://scenes/CharacterBody2D/Items/Component/nailable_component/nailable_component.tscn" id="11_gaaqt"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7me46"]
+resource_local_to_scene = true
+shader = ExtResource("1_638gx")
+shader_parameter/outline_color = null
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bf42r"]
 radius = 1.5
 height = 10.0
@@ -22,6 +28,7 @@ collision_layer = 4
 collision_mask = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7me46")
 texture = ExtResource("1_jpptb")
 hframes = 2
 vframes = 2
@@ -61,8 +68,10 @@ character = NodePath("..")
 area = NodePath("../Hitbox")
 projectile_component = NodePath("../ProjectileComponent")
 
-[node name="MetalBodyComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("7_dcdrd")]
+[node name="MetalBodyComponent" parent="." node_paths=PackedStringArray("entity", "entity_sprite", "gravity_component") instance=ExtResource("7_dcdrd")]
 entity = NodePath("..")
+entity_sprite = NodePath("../Sprite2D")
+gravity_component = NodePath("../GravityComponent")
 
 [node name="ProjectileComponent" parent="." node_paths=PackedStringArray("entity", "gravity_component") instance=ExtResource("8_r4xmk")]
 entity = NodePath("..")

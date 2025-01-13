@@ -1,5 +1,6 @@
-[gd_scene load_steps=59 format=3 uid="uid://d4co65rsfvse5"]
+[gd_scene load_steps=61 format=3 uid="uid://d4co65rsfvse5"]
 
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_3tf8e"]
 [ext_resource type="Texture2D" uid="uid://mfmhg6l5iaef" path="res://assets/sprites/player.png" id="1_lguaw"]
 [ext_resource type="PackedScene" uid="uid://301qt663u07l" path="res://scenes/CharacterBody2D/Component/movement_updater/MovementUpdater.tscn" id="2_giwar"]
 [ext_resource type="AnimationLibrary" uid="uid://dxkxnoikr7vf5" path="res://escenas_antiguas/entity/controllable_entity/player/sprite_animations.res" id="2_sygdn"]
@@ -25,6 +26,10 @@
 [ext_resource type="PackedScene" uid="uid://1nheuxhgyapk" path="res://scenes/CharacterBody2D/Entity/character/actions/shoot.tscn" id="12_tn48p"]
 [ext_resource type="Resource" uid="uid://bd5826crnfia" path="res://scenes/CharacterBody2D/Items/Entity/coin/coin.tres" id="14_ofsuj"]
 [ext_resource type="PackedScene" uid="uid://tf61rmi3qmb7" path="res://scenes/CharacterBody2D/Entity/character/actions/death.tscn" id="22_2ocmk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bvea2"]
+shader = ExtResource("1_3tf8e")
+shader_parameter/outline_color = null
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s83vp"]
 atlas = ExtResource("1_lguaw")
@@ -290,10 +295,12 @@ animations = [{
 size = Vector2(9, 17.5)
 
 [node name="Allomancer" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_bvea2")
 collision_layer = 2
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.81, 0.1134, 0.18306, 1)
+use_parent_material = true
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_4bc0o")
 animation = &"idle"
